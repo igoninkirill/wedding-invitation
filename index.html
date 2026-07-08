@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Кирилл & Алёна | 19.09.2026</title>
+
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700;900&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Стили Слайдера -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Библиотеки -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.10/SmoothScroll.min.js"></script>
+
+    <meta property="og:title" content="Кирилл & Алёна | 19.09.2026" />
+    <meta property="og:description" content="Приглашаем вас на нашу свадьбу!" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://i.pinimg.com/736x/12/d6/64/12d66478dfefb2e34f9e129b5d560fe5.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <style>
+        :root {
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --color-black: #64242E;
+            --color-white: #ffffff;
+            --color-gray: #2a2a2a;
+            --color-light-gray: #eeeeee;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--color-black);
+            background: var(--color-white);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body.loading { overflow: hidden; height: 100vh; }
+
+        /* Typography */
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 52px;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 40px;
+            line-height: 0.9;
+            letter-spacing: 0.1px;
+        }
+
+        .section-text {
+            font-family: var(--font-sans);
+            font-size: 20px;
+            font-weight: 300;
+            text-align: center;
+            line-height: 1.55;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .section {
+            padding: 60px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 25px 16px;
+            }
+        }
+
+        /* Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-on-scroll.animate-in {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--color-white);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .preloader-hidden { transform: translateY(-100%); }
+        .preloader-number {
+            font-family: var(--font-serif);
+            font-size: 70px;
+            font-weight: 900;
+            color: var(--color-black);
+        }
+        .preloader-number span { font-size: 40px; }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://i.pinimg.com/736x/12/d6/64/12d66478dfefb2e34f9e129b5d560fe5.jpg');
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.2);
+            transition: transform 3.5s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+        }
+        .hero-bg-zoom { transform: scale(1); }
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.25);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--color-white);
+            opacity: 0;
+            transform: perspective(1000px) translate3d(0px, 200px, 0px) rotate3d(-500, 10, 0, 90deg) scale(0.6);
+            transition: all 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        .hero-content-visible {
+            opacity: 1;
+            transform: perspective(500px) translate3d(0, 0, 0);
+        }
+        .hero-ornament {
+            margin-bottom: 20px;
+            animation: rotateOrnament 25s infinite linear;
+            display: flex;
+            justify-content: center;
+        }
+        @keyframes rotateOrnament {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .hero-names {
+            font-family: var(--font-serif);
+            font-size: 52px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1.2;
+            letter-spacing: 0.1px;
+        }
+        .hero-and {
+            display: block;
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        .hero-scroll {
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .scroll-text {
+            font-size: 10px;
+            letter-spacing: 2px;
+            font-weight: 300;
+            color: var(--color-white);
+            opacity: 0.8;
+        }
+
+        .scroll-arrow {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulseArrow 2s infinite ease-in-out;
+        }
+
+        .scroll-arrow svg {
+            animation: bounceArrow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseArrow {
+            0%, 100% {
+                transform: scale(1);
+                border-color: rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                transform: scale(1.1);
+                border-color: rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        @keyframes bounceArrow {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(3px);
+            }
+        }
+
+        /* ========== КАЛЕНДАРЬ (Vue Component) ========== */
+        .calendar-wrapper {
+            position: relative;
+            width: 340px;
+            max-width: 90vw;
+            margin: 40px auto;
+            padding: 30px 25px 25px;
+            border: 1px solid var(--color-black);
+            font-family: var(--font-serif);
+        }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0,0,0,0.15);
+        }
+        .calendar-month-year {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .calendar-arrows {
+            display: flex;
+            gap: 10px;
+            opacity: 0.3;
+        }
+        .calendar-arrow {
+            width: 10px;
+            height: 1px;
+            background: var(--color-black);
+            position: relative;
+            transform: rotate(45deg);
+        }
+        .calendar-arrow::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 10px; height: 1px;
+            background: var(--color-black);
+            transform: rotate(-90deg);
+            transform-origin: left;
+        }
+        .calendar-arrow.right { transform: rotate(-45deg); }
+        .calendar-arrow.right::after { transform: rotate(90deg); transform-origin: right; }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            margin-bottom: 10px;
+        }
+        .calendar-weekday {
+            text-align: center;
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--color-gray);
+            letter-spacing: 1px;
+            padding: 5px 0;
+            text-transform: uppercase;
+        }
+        .calendar-weekday.weekend { color: #a0583a; }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        .calendar-day {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--color-black);
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .calendar-day.empty { visibility: hidden; }
+        .calendar-day.weekend { color: #a0583a; }
+        .calendar-day.highlighted {
+            background: var(--color-black);
+            color: var(--color-white);
+            font-weight: 900;
+            box-shadow: 0 0 0 4px var(--color-white), 0 0 0 5px var(--color-black);
+            transform: scale(1.15);
+            z-index: 2;
+        }
+        .calendar-day.highlighted::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 8px;
+            height: 8px;
+            background: #a0583a;
+            border-radius: 50%;
+            animation: pulseDot 2s infinite ease-in-out;
+        }
+        @keyframes pulseDot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.7; }
+        }
+
+        .calendar-heart {
+            position: absolute;
+            bottom: -10px;
+            right: -15px;
+            width: 45px;
+            height: 41px;
+            animation: pulseHeart 3.4s infinite ease-in-out;
+        }
+        @keyframes pulseHeart {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.14); }
+        }
+
+        .pre-onelove-img {
+            width: 100%;
+            max-width: 650px;
+            margin: 60px auto 40px;
+            display: block;
+        }
+
+        .one-love {
+            font-family: var(--font-serif);
+            font-size: 42px;
+            font-weight: 900;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Location */
+        .location-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 60px;
+            max-width: 500px;
+            width: 100%;
+        }
+        .location-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        .location-text {
+            font-size: 20px;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.55;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            height: 45px;
+            padding: 0 30px;
+            background: var(--color-black);
+            color: var(--color-white);
+            border: 1px solid var(--color-black);
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 300;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background: var(--color-white);
+            color: var(--color-black);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            padding: 40px 0;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: #4A2C2A;
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+            width: 100%;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            width: 18px;
+            height: 18px;
+            background: #4A2C2A;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+        .timeline-content { width: 45%; }
+        .timeline-content.left {
+            text-align: right;
+            padding-right: 40px;
+        }
+        .timeline-content.right {
+            text-align: left;
+            padding-left: 40px;
+            margin-left: 55%;
+        }
+        .timeline-time {
+            font-family: var(--font-serif);
+            font-size: 42px;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+        .timeline-label {
+            font-size: 20px;
+            font-weight: 300;
+            line-height: 1.15;
+        }
+
+        /* Dresscode */
+        .color-palette {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .color-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 0;
+            box-shadow: 1px 1px 0px 0px rgba(0,0,0,0.4);
+        }
+        .dresscode-slider {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        /* Создаем единый контейнер для всех картинок */
+        .dresscode-slider .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f8f5f0;
+            border-radius: 4px;
+            overflow: hidden;
+            /* Фиксированное соотношение сторон для всех картинок - как у вертикального фото */
+            aspect-ratio: 2 / 3;
+            width: 100%;
+        }
+
+        /* Картинка заполняет контейнер, но видна целиком */
+        .dresscode-slider .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Показывает картинку целиком */
+            display: block;
+            background: #f8f5f0;
+        }
+        .swiper-pagination-bullet {
+            background: #c7c7c7;
+            opacity: 1;
+        }
+        .swiper-pagination-bullet-active {
+            background: #222;
+        }
+
+        /* Divider */
+        .divider {
+            width: 100px;
+            height: 1px;
+            background: var(--color-black);
+            margin: 40px 0;
+        }
+
+        /* Form */
+        .rsvp-form {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 20px;
+        }
+        .form-group { margin-bottom: 29px; }
+        .form-group label {
+            display: block;
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 9px;
+        }
+        .form-group input[type="text"] {
+            width: 100%;
+            height: 60px;
+            border: 1px solid var(--color-black);
+            background: var(--color-white);
+            padding: 0 15px;
+            font-family: var(--font-serif);
+            font-size: 16px;
+            font-weight: 300;
+            color: var(--color-black);
+            outline: none;
+        }
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .radio-group label, .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 300;
+            cursor: pointer;
+            margin-bottom: 0;
+        }
+
+        /* Custom Inputs */
+        input[type="radio"], input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            margin-right: 10px;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        input[type="checkbox"] { border-radius: 0; }
+        input[type="radio"]:checked::after, input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: #000;
+            border-radius: 50%;
+        }
+        input[type="checkbox"]:checked::after { border-radius: 0; }
+
+        .btn-submit {
+            width: 160px;
+            margin: 20px auto 0;
+            display: flex;
+        }
+
+        /* Contacts */
+        .contact-link {
+            font-size: 20px;
+            font-weight: 300;
+            color: var(--color-black);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom 0.3s;
+        }
+        .contact-link:hover { border-bottom: 1px solid var(--color-black); }
+
+        /* Footer */
+        .footer-img {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 40px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .section-title { font-size: 26px; margin-bottom: 20px; }
+            .section-text { font-size: 14px; }
+            .hero-names { font-size: 36px; }
+            .hero-and { font-size: 18px; }
+            .one-love { font-size: 22px; }
+
+            .calendar-wrapper { width: 290px; padding: 22px 18px 18px; margin: 20px auto; }
+            .calendar-month-year { font-size: 17px; letter-spacing: 1.5px; }
+            .calendar-weekday { font-size: 10px; }
+            .calendar-day { font-size: 14px; }
+            .calendar-heart { width: 31px; height: 28px; bottom: -5px; right: -10px; }
+            .pre-onelove-img { margin: 30px auto 20px; }
+
+            .timeline-content.left, .timeline-content.right {
+                width: 100%;
+                text-align: left;
+                padding-left: 40px;
+                padding-right: 0;
+                margin-left: 0;
+            }
+            .timeline-line { left: 20px; }
+            .timeline-dot {
+                left: 20px;
+                width: 13px;
+                height: 13px;
+            }
+            .timeline-time { font-size: 22px; }
+            .timeline-label { font-size: 14px; }
+
+            .color-circle { width: 35px; height: 35px; }
+            .dresscode-slider .swiper-slide {
+                aspect-ratio: 3 / 4; /* Чуть более широкие пропорции для мобилок */
+            }
+            .dresscode-slider .swiper-slide img { object-fit: contain; }
+
+            .form-group label { font-size: 14px; }
+            .form-group input[type="text"] { height: 50px; font-size: 14px; }
+        }
+        .dresscode-text-group {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .dresscode-text-group .section-text {
+            margin-bottom: 0;
+            padding: 18px 0;
+        }
+        .dresscode-text-group .section-text:not(:last-child) {
+            border-bottom: 1px solid rgba(100, 36, 46, 0.15);
+        }
+
+        /* Wishes Section - Updated */
+        /* Wishes Card - Vertical Layout */
+        .wishes-card {
+            max-width: 650px;
+            width: 100%;
+            margin: 40px auto 0;
+            padding: 60px 50px;
+            background: linear-gradient(135deg, #64242E 0%, #4A1A22 100%);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(100, 36, 46, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wishes-card::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(251, 246, 236, 0.15);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        /* Иконки в ряд сверху */
+        .wishes-icons-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 25px;
+            margin-top: 50px;
+            filter: drop-shadow(0 4px 12px rgba(251, 246, 236, 0.2));
+        }
+
+        .wishes-icon {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wishes-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Бокал шампанского — широкий, с веточкой */
+        .wishes-icon.glass {
+            width: 52px;
+            height: 82px;
+        }
+
+        /* Бутылка шампанского — высокая и узкая */
+        .wishes-icon.bottle {
+            width: 32px;
+            height: 84px;
+        }
+
+        /* Текст снизу, на всю ширину */
+        .wishes-content {
+            width: 100%;
+        }
+
+        .wishes-title {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: 600;
+            color: #FBF6EC;
+            margin-bottom: 25px;
+            line-height: 1.3;
+            font-style: italic;
+        }
+
+        .wishes-text {
+            font-family: var(--font-sans);
+            font-size: 17px;
+            font-weight: 300;
+            color: #FBF6EC;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            opacity: 0.95;
+            text-align: justify;     /* ← ДОБАВИТЬ */
+            text-align-last: center; /* ← ДОБАВИТЬ (последняя строка по центру) */
+            word-break: break-word;  /* ← ДОБАВИТЬ (перенос длинных слов) */
+        }
+
+        .wishes-text:last-child {
+            margin-bottom: 0;
+        }
+
+        .wishes-highlight {
+            color: #FBF6EC;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(251, 246, 236, 0.4);
+            padding-bottom: 2px;
+        }
+
+        .wishes-divider {
+            width: 40px;
+            height: 2px;
+            background: #FBF6EC;
+            margin: 25px auto;
+            opacity: 0.4;
+        }
+
+        .wishes-secondary {
+            max-width: 650px;
+            width: 100%;
+            margin: 30px auto 0;
+            padding: 40px 45px;
+            background: linear-gradient(135deg, rgba(251, 246, 236, 0.95) 0%, rgba(251, 246, 236, 0.85) 100%);
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(100, 36, 46, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 36, 46, 0.1);
+            word-break: break-word;
+            overflow-wrap: break-word;
+            box-sizing: border-box;
+        }
+
+        .wishes-secondary::before {
+            content: '🥂';
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 32px;
+            opacity: 0.3;
+            transform: rotate(-15deg);
+        }
+
+        .wishes-secondary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg,
+            #64242E 0%,
+            #4A1A22 50%,
+            #64242E 100%
+            );
+            opacity: 0.6;
+        }
+
+        .wishes-secondary-text {
+            font-family: var(--font-sans) !important;
+            font-size: 17px !important;
+            font-weight: 300 !important;
+            line-height: 1.7 !important;
+            color: #2a2a2a !important;
+            margin: 0;
+            text-align: justify;
+            text-align-last: center;
+            word-break: break-word;     /* ← ДОБАВИТЬ */
+            overflow-wrap: break-word;  /* ← ДОБАВИТЬ */
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Жирный текст внутри пожелания */
+        .wishes-secondary-text b {
+            font-weight: 500 !important; /* Такой же вес, как у wishes-highlight */
+            color: #64242E !important; /* Акцентный цвет, как у подсветки */
+        }
+
+        /* Убираем кавычки, чтобы не мешали */
+        .wishes-secondary-text::before,
+        .wishes-secondary-text::after {
+            display: none;
+        }
+
+        /* Мобильная версия */
+        @media (max-width: 768px) {
+            .wishes-secondary {
+                padding: 30px 20px;  /* ← уменьшил с 25px до 20px для безопасности */
+                margin-top: 25px;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+
+            .wishes-secondary::before {
+                font-size: 24px;
+                top: 15px;
+                right: 20px;
+            }
+
+            .wishes-secondary-text {
+                font-size: 15px !important;
+                line-height: 1.7 !important;
+            }
+
+            .wishes-secondary-text::before {
+                font-size: 36px;
+                top: -15px;
+                left: -5px;
+            }
+
+            .wishes-secondary-text::after {
+                font-size: 36px;
+                bottom: -30px;
+                right: -5px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .wishes-card {
+                padding: 40px 25px;
+            }
+
+            .wishes-icons-row {
+                gap: 20px;
+                margin-bottom: 35px;
+            }
+
+            .wishes-icon.glass {
+                width: 42px;
+                height: 66px;
+            }
+
+            .wishes-icon.bottle {
+                width: 26px;
+                height: 68px;
+            }
+
+            .wishes-title {
+                font-size: 22px;
+            }
+
+            .wishes-text {
+                font-size: 15px;
+            }
+
+            .wishes-divider {
+                margin: 20px auto;
+            }
+        }
+        /* Timer */
+        .timer-section {
+            padding-top: 0;
+        }
+
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .timer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 70px;
+        }
+
+        .timer-number {
+            font-family: var(--font-serif);
+            font-size: 52px;
+            font-weight: 900;
+            color: var(--color-black);
+            line-height: 1;
+            letter-spacing: 2px;
+        }
+
+        .timer-label {
+            font-family: var(--font-sans);
+            font-size: 12px;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-gray);
+            margin-top: 8px;
+            opacity: 0.6;
+        }
+
+        .timer-divider {
+            font-family: var(--font-serif);
+            font-size: 40px;
+            font-weight: 300;
+            color: var(--color-black);
+            opacity: 0.2;
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .timer-container {
+                gap: 12px;
+            }
+
+            .timer-item {
+                min-width: 55px;
+            }
+
+            .timer-number {
+                font-size: 36px;
+            }
+
+            .timer-label {
+                font-size: 10px;
+                letter-spacing: 1.5px;
+            }
+
+            .timer-divider {
+                font-size: 28px;
+            }
+        }
+
+        /* Тяни-дергай веревка */
+        .rope-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: grab;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        /* Кнопка включения музыки */
+        .music-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--color-black);
+            border: 2px solid var(--color-black);
+            color: var(--color-white);
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+            transform: scale(0.6) translateY(30px);
+            box-shadow: 0 4px 20px rgba(100, 36, 46, 0.25);
+        }
+
+        .music-btn.visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .music-btn:hover {
+            transform: scale(1.08);
+            background: var(--color-white);
+            color: var(--color-black);
+            box-shadow: 0 8px 32px rgba(100, 36, 46, 0.35);
+        }
+
+        .music-btn:active {
+            transform: scale(0.92);
+        }
+
+        .music-btn.playing {
+            background: #4A1A22;
+            border-color: #4A1A22;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(100, 36, 46, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 0 12px rgba(100, 36, 46, 0);
+            }
+        }
+
+        .music-btn .tooltip {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            right: 50%;
+            transform: translateX(50%);
+            background: rgba(0,0,0,0.85);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .music-btn .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            right: 50%;
+            transform: translateX(50%);
+            border: 6px solid transparent;
+            border-top-color: rgba(0,0,0,0.85);
+        }
+
+        .music-btn:hover .tooltip {
+            opacity: 1;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .music-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
+            }
+            .music-btn .tooltip {
+                font-size: 10px;
+                padding: 4px 12px;
+                bottom: calc(100% + 8px);
+            }
+        }
+    </style>
+</head>
+<body class="loading">
+
+<div id="app">
+    <!-- Preloader -->
+    <div class="preloader" :class="{ 'preloader-hidden': !isLoading }">
+        <div class="preloader-number">{{ preloaderNum }}<span>%</span></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-bg" :class="{ 'hero-bg-zoom': !isLoading }"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content" :class="{ 'hero-content-visible': !isLoading }">
+                <div class="hero-ornament">
+                    <svg viewBox="0 0 200 200" width="130" height="130" class="rotating-text-svg">
+                        <defs>
+                            <path id="circlePath" d="M 100, 100 m -75, 0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0" />
+                        </defs>
+                        <text fill="white" font-family="Montserrat, sans-serif" font-size="14.5" font-weight="500" letter-spacing="3.8">
+                            <textPath href="#circlePath">
+                                {{ data.circleText }}
+                            </textPath>
+                        </text>
+                    </svg>
+                </div>
+                <h1 class="hero-names">
+                    <span>{{ data.groom }}</span>
+                    <span class="hero-and">И</span>
+                    <span>{{ data.bride }}</span>
+                </h1>
+                <div class="hero-scroll">
+                    <span class="scroll-text">ЛИСТАЙТЕ ВНИЗ</span>
+                    <div class="scroll-arrow">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 10L12 15L17 10" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dear Guests -->
+        <section class="section guests-section">
+            <h2 class="section-title animate-on-scroll">ДОРОГИЕ ГОСТИ!</h2>
+            <p class="section-text animate-on-scroll">Мы давно ждали момента, когда вместе с Вами сможем разделить самый важный и счастливый день в нашей жизни - день нашей свадьбы!</p>
+
+            <!-- ========== НОВЫЙ VUE-КАЛЕНДАРЬ ========== -->
+            <div class="calendar-wrapper animate-on-scroll">
+                <div class="calendar-header">
+                    <div class="calendar-month-year">{{ calendar.monthName }} {{ calendar.year }}</div>
+                    <div class="calendar-arrows">
+                        <span class="calendar-arrow"></span>
+                        <span class="calendar-arrow right"></span>
+                    </div>
+                </div>
+
+                <div class="calendar-weekdays">
+                    <div class="calendar-weekday" v-for="d in calendar.weekdays" :key="d"
+                         :class="{ weekend: d === 'СБ' || d === 'ВС' }">
+                        {{ d }}
+                    </div>
+                </div>
+
+                <div class="calendar-days">
+                    <div class="calendar-day empty" v-for="n in calendar.firstDayOffset" :key="'empty-' + n"></div>
+                    <div class="calendar-day"
+                         v-for="day in calendar.daysInMonth"
+                         :key="day"
+                         :class="{
+                   'highlighted': day === calendar.highlightedDay,
+                   'weekend': isWeekend(day)
+                 }">
+                        {{ day }}
+                    </div>
+                </div>
+
+            </div>
+            <!-- ========== /НОВЫЙ VUE-КАЛЕНДАРЬ ========== -->
+
+
+        </section>
+
+        <!-- Location -->
+        <section class="section location-section">
+            <h2 class="section-title animate-on-scroll">ЛОКАЦИЯ</h2>
+
+            <div class="location-block animate-on-scroll">
+                <img src="https://media.radissonhotels.net/image/radisson-hotel-congress-center-saransk/restaurant/16256-134811-f90410660_3XL.jpg?impolicy=HomeHero" class="location-img" alt="Banquet">
+                <p class="location-text" v-html="data.location.banquet"></p>
+                <button class="btn" @click="openMap('banquet')">ПОСТРОИТЬ МАРШРУТ</button>
+            </div>
+        </section>
+
+        <!-- Timing -->
+        <section class="section timing-section animate-on-scroll">
+            <h2 class="section-title">ТАЙМИНГ</h2>
+            <div class="timeline">
+                <div class="timeline-line"></div>
+                <div class="timeline-item" v-for="item in data.timing" :key="item.time">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content" :class="item.align">
+                        <div class="timeline-time">{{ item.time }}</div>
+                        <div class="timeline-label">{{ item.label }}</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dress Code -->
+        <section class="section dresscode-section animate-on-scroll">
+            <h2 class="section-title">ДРЕСС-КОД</h2>
+            <p class="section-text">Будем благодарны, если в своих нарядах вы поддержите цветовую палитру нашего праздника.</p>
+
+
+            <!-- Блок для девушек -->
+            <div class="dresscode-text-group">
+                <p class="section-text" style="font-weight: 600; font-family: var(--font-serif); font-size: 22px; border-bottom: none; padding-bottom: 10px;">Для девушек</p>
+                <div class="color-palette">
+                    <div class="color-circle" v-for="color in data.dresscode.colors" :style="{ backgroundColor: color }"></div>
+                </div>
+                <p class="section-text">Милые дамы, просим вас избегать белого цвета — в этот день он только для невесты</p>
+            </div>
+
+
+            <!-- Блок для мужчин -->
+            <div class="dresscode-text-group" style="margin-top: 20px;">
+                <p class="section-text" style="font-weight: 600; font-family: var(--font-serif); font-size: 22px; border-bottom: none; padding-bottom: 10px;">Для мужчин</p>
+                <div class="color-palette">
+                    <div class="color-circle" v-for="color in data.dresscode.colors" :style="{ backgroundColor: color }"></div>
+                    <div class="color-circle" style="background-color: #1a1a1a;"></div>
+                </div>
+                <p class="section-text">Уважаемые мужчины, выбирайте костюмы с рубашкой или поло в предложенных оттенках</p>
+            </div>
+
+
+            <p class="section-text" style="margin-top: 30px; font-style: italic; font-family: var(--font-serif); font-weight: 400;">
+                Мы подобрали немного образов, чтобы вы могли вдохновиться
+            </p>
+
+            <div class="swiper dresscode-slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for="img in data.dresscode.images">
+                        <img :src="img" alt="Dresscode">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+        <!-- Wishes -->
+        <section class="section wishes-section animate-on-scroll">
+            <h2 class="section-title">ПОЖЕЛАНИЯ</h2>
+
+            <div class="wishes-card">
+                <div class="wishes-content">
+                    <h3 class="wishes-title">Вместо цветов — бутылочка вашего любимого алкоголя</h3>
+                    <p class="wishes-text">
+                        Дорогие гости, просим вас <span class="wishes-highlight">не дарить нам цветы</span>. Они прекрасны, но быстро увядают, а мы хотим сохранить воспоминания надолго.
+                    </p>
+                    <div class="wishes-divider"></div>
+                    <p class="wishes-text">
+                        Будем очень благодарны за <span class="wishes-highlight">бутылочку вашего любимого алкоголя</span> или <span class="wishes-highlight">подарочный сертификат</span>. Мы будем открывать их в особенные моменты и вспоминать наш праздничный день с теплом в сердце.
+                    </p>
+                </div>
+                <div class="wishes-icons-row">
+                    <div class="wishes-icon glass">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 50" fill="none"> <path d="M19.0355 32.7806C18.6572 32.6742 18.325 32.4451 18.0911 32.1293C17.8948 31.7765 17.8346 31.3641 17.9218 30.97C18.1121 30.2156 18.3885 29.4857 18.7457 28.7946C19.0679 28.0788 19.4864 27.4104 19.9897 26.8081C20.2453 26.5041 20.5312 26.227 20.8429 25.9809C20.9998 25.8622 21.1641 25.7534 21.3347 25.6553C21.4288 25.59 21.5305 25.5364 21.6375 25.4956C21.7152 25.4704 21.7975 25.4626 21.8785 25.4729C21.9388 25.4787 21.9964 25.5013 22.0446 25.538C22.1028 25.5784 22.1462 25.6367 22.1683 25.7041L21.8687 25.5673C22.3583 25.3704 22.8857 25.2858 23.4123 25.3198C23.9286 25.3613 24.4319 25.5029 24.8941 25.7367C25.35 25.9581 25.7701 26.1958 26.1967 26.427L26.5223 26.6029C26.6702 26.6778 26.7959 26.7901 26.8871 26.9286C26.9773 27.0731 27.0247 27.2402 27.0238 27.4105C27.0243 27.5481 27.0123 27.6855 26.988 27.8208L26.9587 27.6613C27.0924 27.9103 27.1498 28.1932 27.1237 28.4747C27.0976 28.7562 26.9893 29.0237 26.8122 29.2439L26.2357 29.9702L26.3921 29.0388C26.4023 28.9943 26.4219 28.9525 26.4493 28.916C26.4768 28.8795 26.5117 28.8493 26.5516 28.8271C26.612 28.7967 26.6798 28.7842 26.7471 28.7913C26.8055 28.7964 26.8621 28.8152 26.9119 28.8464C26.9617 28.8775 27.0034 28.92 27.0336 28.9704C27.0692 29.0424 27.086 29.1222 27.0826 29.2025C27.0792 29.2827 27.0556 29.3608 27.0141 29.4296L26.7861 29.8529L26.3335 30.6769L26.0078 31.2988L25.9101 30.5857C25.907 30.5433 25.9136 30.5007 25.9294 30.4612C25.9452 30.4217 25.9698 30.3863 26.0013 30.3577C26.0485 30.3157 26.1078 30.2895 26.1706 30.2828C26.2186 30.2762 26.2675 30.2803 26.3137 30.295C26.3599 30.3096 26.4023 30.3344 26.4376 30.3675C26.4805 30.4095 26.5109 30.4624 26.5256 30.5205C26.5319 30.5605 26.5319 30.6011 26.5256 30.641C26.5176 30.7029 26.4977 30.7626 26.467 30.8169C26.4258 30.8798 26.3801 30.9397 26.3302 30.996L26.2064 31.136C26.036 31.324 25.8521 31.4992 25.6561 31.6603L25.4347 31.2988C25.4816 31.2777 25.5331 31.2688 25.5845 31.2728C25.6193 31.2772 25.653 31.2888 25.6831 31.3067C25.7134 31.3246 25.7397 31.3485 25.7603 31.377C25.808 31.4382 25.8323 31.5145 25.8287 31.5919C25.8275 31.694 25.797 31.7934 25.7407 31.8785C25.6885 31.9446 25.6258 32.0019 25.5552 32.0479C25.4996 32.0867 25.4419 32.1226 25.3826 32.1553C25.1471 32.2868 24.8861 32.3657 24.6173 32.3865L24.728 32.0609L25.0016 32.3246L25.2588 32.5754L24.9104 32.634L23.9334 32.8034L23.4416 32.8881L23.2235 32.9271C23.2063 32.9334 23.1907 32.9434 23.1779 32.9564C23.1779 32.9564 23.1779 32.9564 23.1779 32.9336C23.1791 32.9186 23.1764 32.9036 23.1702 32.8899C23.1639 32.8762 23.1542 32.8643 23.1421 32.8555L23.0834 33.1095C22.4021 33.1822 21.7167 33.2095 21.0318 33.1909C20.3434 33.18 19.6631 33.0409 19.0258 32.7806C19.6752 32.9782 20.3536 33.0641 21.0318 33.0346C21.7059 33.0346 22.3767 32.9174 23.0509 32.8359L22.9922 33.09C22.9623 33.0703 22.9379 33.0432 22.9219 33.0111C22.9059 32.9791 22.8987 32.9433 22.901 32.9076C22.9057 32.8579 22.9262 32.8111 22.9597 32.7741C23.0006 32.7241 23.0531 32.685 23.1128 32.6601C23.1606 32.6445 23.2096 32.6325 23.2593 32.6243L23.383 32.5982L23.8715 32.494L24.8485 32.2823L24.7605 32.608L24.474 32.3572L24.1483 32.0804L24.5717 32.0315C24.7831 32.0084 24.9867 31.9383 25.1676 31.8264C25.2132 31.8003 25.2555 31.7678 25.2979 31.7385C25.3402 31.7091 25.3988 31.6538 25.3793 31.6669C25.383 31.6496 25.383 31.6319 25.3793 31.6147C25.3793 31.6147 25.3793 31.6147 25.3988 31.6603C25.4251 31.6921 25.4623 31.713 25.503 31.719C25.5253 31.7259 25.5492 31.7259 25.5714 31.719L25.3467 31.3575C25.5229 31.2052 25.6883 31.0408 25.8417 30.8657L25.9524 30.7322C25.984 30.6979 26.0123 30.6609 26.0371 30.6215C26.0078 30.4912 26.0957 31.0514 26.3269 30.5759L25.8938 30.4879L26.3302 29.6413L26.5614 29.2016C26.5973 29.1495 26.5614 29.1234 26.5973 29.2016C26.6331 29.2798 26.6559 29.2603 26.6852 29.2635C26.7115 29.2727 26.7402 29.2727 26.7666 29.2635C26.7897 29.2513 26.8097 29.2341 26.8255 29.2133C26.8412 29.1926 26.8523 29.1685 26.8578 29.143L26.4279 28.9346C26.5404 28.7906 26.6088 28.6172 26.625 28.4351C26.6412 28.2531 26.6044 28.0703 26.5191 27.9088L26.4735 27.8339V27.7492C26.5215 27.5705 26.5112 27.3811 26.4442 27.2086C26.3927 27.1444 26.3269 27.0931 26.2521 27.0588L25.9264 26.8862C25.4965 26.655 25.0667 26.4075 24.6433 26.1958C24.238 25.9836 23.7959 25.851 23.3407 25.805C22.8864 25.7683 22.4295 25.8317 22.0023 25.9906L21.7026 25.8507C21.7026 25.8897 21.7776 25.9288 21.7776 25.919C21.7624 25.9174 21.7471 25.9174 21.7319 25.919C21.6602 25.9494 21.5916 25.9864 21.5268 26.0298C21.369 26.1216 21.2167 26.2227 21.0709 26.3326C20.7726 26.5537 20.4956 26.8023 20.2437 27.0751C19.7394 27.6337 19.3132 28.2581 18.9769 28.9314L18.495 29.9702C18.3264 30.3008 18.1922 30.6478 18.0944 31.0058C17.9882 31.3618 18.0172 31.7445 18.1758 32.0804C18.3816 32.3984 18.6824 32.6434 19.0355 32.7806Z" fill="#FBF6EC"></path> <path d="M18.1406 31.3505C18.8671 31.3513 19.5855 31.197 20.2476 30.8979C20.9175 30.6304 21.57 30.3215 22.2015 29.9731C22.8441 29.6297 23.4641 29.2458 24.0578 28.8235C24.6504 28.4067 25.2139 27.9442 25.7707 27.4688C25.2861 28.0221 24.752 28.5301 24.175 28.9863C23.593 29.4363 22.9767 29.8403 22.3318 30.1945C21.6822 30.5427 21.0059 30.8389 20.3095 31.0803C19.6218 31.3551 18.8748 31.4482 18.1406 31.3505Z" fill="#FBF6EC"></path> <path d="M19.1422 29.1875C19.0999 29.4481 19.0315 29.6858 18.9729 29.9267L18.8784 30.2947C18.8459 30.4152 18.8133 30.539 18.771 30.6628C18.7459 30.5341 18.7372 30.4028 18.7449 30.2719C18.7523 30.1421 18.773 30.0133 18.8068 29.8877C18.8672 29.6329 18.9816 29.3941 19.1422 29.1875Z" fill="#FBF6EC"></path> <path d="M19.5172 29.2031C19.5165 29.445 19.4991 29.6865 19.4651 29.926C19.4488 30.0433 19.4358 30.1605 19.413 30.2777C19.3958 30.3987 19.3708 30.5183 19.3381 30.636C19.3051 30.517 19.2865 30.3946 19.2827 30.2712C19.2783 30.1483 19.2838 30.0253 19.299 29.9033C19.3263 29.6581 19.4003 29.4204 19.5172 29.2031Z" fill="#FBF6EC"></path> <path d="M19.9559 28.9688C19.9652 29.2101 19.9566 29.4517 19.9298 29.6917C19.9298 29.8089 19.9038 29.9262 19.881 30.0467C19.8635 30.1665 19.8385 30.285 19.8061 30.4017C19.7731 30.2827 19.7545 30.1603 19.7507 30.0369C19.7394 29.9156 19.7394 29.7935 19.7507 29.6722C19.7751 29.427 19.8446 29.1885 19.9559 28.9688Z" fill="#FBF6EC"></path> <path d="M20.4098 28.875C20.4179 29.1057 20.4059 29.3367 20.374 29.5654C20.374 29.6761 20.3447 29.7901 20.3186 29.891C20.2979 30.0014 20.2696 30.1102 20.234 30.2166C20.2042 30.1029 20.1888 29.9858 20.1883 29.8682C20.185 29.7517 20.1916 29.6352 20.2079 29.5197C20.2343 29.2941 20.3028 29.0754 20.4098 28.875Z" fill="#FBF6EC"></path> <path d="M20.7449 28.7188C20.7596 28.9236 20.7596 29.1293 20.7449 29.3343C20.7449 29.4319 20.7449 29.5329 20.7189 29.6338C20.7091 29.7432 20.6928 29.852 20.6701 29.9595C20.63 29.8572 20.6048 29.7498 20.5952 29.6403C20.5829 29.5322 20.5829 29.4229 20.5952 29.3147C20.5997 29.1073 20.6509 28.9036 20.7449 28.7188Z" fill="#FBF6EC"></path> <path d="M21.1273 28.625C21.188 28.7987 21.2188 28.9815 21.2184 29.1656C21.2248 29.2556 21.2248 29.3459 21.2184 29.4359C21.2068 29.5278 21.1861 29.6184 21.1566 29.7062C21.1231 29.6191 21.1002 29.5284 21.0882 29.4359C21.0741 29.3465 21.0665 29.2561 21.0654 29.1656C21.0543 28.9832 21.0752 28.8003 21.1273 28.625Z" fill="#FBF6EC"></path> <path d="M21.4716 28.4375C21.5331 28.6133 21.564 28.7984 21.5628 28.9846C21.5677 29.0747 21.5677 29.1648 21.5628 29.2549L21.54 29.3852C21.5339 29.4045 21.5328 29.4252 21.5368 29.4451C21.5407 29.465 21.5497 29.4836 21.5628 29.4991C21.5074 29.4991 21.4749 29.4405 21.4586 29.3949C21.4423 29.3493 21.4391 29.3005 21.4293 29.2549C21.4147 29.1667 21.4082 29.0772 21.4098 28.9879C21.3972 28.8022 21.4182 28.6158 21.4716 28.4375Z" fill="#FBF6EC"></path> <path d="M21.87 28.1406C21.9184 28.3029 21.949 28.47 21.9612 28.6389C21.9661 28.7224 21.9661 28.8061 21.9612 28.8897C21.9676 28.9753 21.9676 29.0613 21.9612 29.1469C21.9091 29.0752 21.8705 28.9947 21.8472 28.9092C21.8202 28.8268 21.8028 28.7416 21.7952 28.6552C21.7761 28.4801 21.8019 28.303 21.87 28.1406Z" fill="#FBF6EC"></path> <path d="M22.3245 28.0547C22.3567 28.2028 22.3784 28.3529 22.3897 28.5041C22.3979 28.6516 22.3979 28.7994 22.3897 28.947L22.3409 28.9046C22.4007 28.9177 22.4632 28.9084 22.5167 28.8786C22.5017 28.9147 22.4771 28.946 22.4455 28.969C22.4139 28.992 22.3765 29.0058 22.3376 29.0089H22.3245L22.305 28.9632C22.2499 28.8166 22.2234 28.6607 22.2269 28.5041C22.2275 28.3491 22.2608 28.196 22.3245 28.0547Z" fill="#FBF6EC"></path> <path d="M22.798 27.7812C22.8394 27.9041 22.8689 28.0306 22.8859 28.159C22.897 28.2204 22.9045 28.2824 22.9088 28.3447C22.9139 28.4118 22.9139 28.4794 22.9088 28.5466C22.8523 28.5033 22.8065 28.4476 22.7752 28.3837C22.7424 28.3217 22.7204 28.2545 22.7101 28.185C22.6878 28.0442 22.7192 27.9001 22.798 27.7812Z" fill="#FBF6EC"></path> <path d="M23.172 27.6875C23.2366 27.7793 23.2872 27.8803 23.3218 27.9871C23.3404 28.036 23.3556 28.086 23.3674 28.1369C23.383 28.1944 23.3928 28.2533 23.3967 28.3128C23.3396 28.2869 23.2893 28.2478 23.2501 28.1988C23.2128 28.1517 23.1831 28.0989 23.1622 28.0425C23.1199 27.9273 23.1234 27.8002 23.172 27.6875Z" fill="#FBF6EC"></path> <path d="M23.6275 27.5469C23.6795 27.6609 23.7121 27.7455 23.748 27.8367C23.7838 27.9279 23.8163 28.0126 23.8521 28.133C23.7925 28.1179 23.7374 28.0886 23.6914 28.0478C23.6455 28.0069 23.61 27.9556 23.588 27.8981C23.5659 27.8407 23.558 27.7788 23.5649 27.7177C23.5718 27.6566 23.5932 27.598 23.6275 27.5469Z" fill="#FBF6EC"></path> <path d="M24.0929 27.3438C24.1524 27.4099 24.1998 27.4859 24.2329 27.5684C24.252 27.6074 24.2683 27.6477 24.2818 27.6889C24.2939 27.7346 24.3005 27.7817 24.3013 27.829C24.2508 27.8185 24.2045 27.7936 24.1678 27.7574C24.1323 27.7235 24.1046 27.6824 24.0864 27.6369C24.0645 27.5909 24.0536 27.5405 24.0548 27.4895C24.0559 27.4386 24.0689 27.3887 24.0929 27.3438Z" fill="#FBF6EC"></path> <path d="M13.3838 30.2267C12.7537 30.2869 12.1322 30.4169 11.5308 30.6142C10.9284 30.7965 10.3389 31.031 9.75273 31.2655L9.73647 31.1613H10.2901H10.5669L10.3226 31.2981L9.77881 31.5977V31.4609L10.2087 31.7866L10.365 31.9103L10.1663 31.9559L9.79508 32.0438L9.86672 31.8875C10.1785 32.4002 10.6432 32.8023 11.1954 33.0371L11.622 33.2162L11.1661 33.3204L10.7297 33.4181L10.7851 33.1348C11.2028 33.4026 11.6833 33.5564 12.1789 33.5809H12.4101L12.3287 33.8024C12.2822 33.9369 12.1915 34.0517 12.0714 34.128L12.0063 33.8024C12.4047 33.8574 12.8105 33.7928 13.1721 33.6167L13.2763 33.9228C13.3057 33.9228 13.3122 33.9033 13.3122 33.9C13.3153 33.8935 13.317 33.8862 13.317 33.8789C13.317 33.8716 13.3153 33.8643 13.3122 33.8577L13.1754 33.7926C13.8539 33.7636 14.5126 33.5546 15.0837 33.1869C15.6451 32.7843 16.1313 32.2861 16.5198 31.7149C16.6362 31.5941 16.7015 31.4332 16.7022 31.2655C16.6491 31.1091 16.5385 30.9787 16.3929 30.9008C16.1051 30.7034 15.7903 30.5488 15.4582 30.4416C14.7874 30.2354 14.0827 30.1624 13.3838 30.2267ZM13.3838 30.2267C14.0844 30.1632 14.7908 30.2283 15.468 30.4188C15.811 30.5187 16.1395 30.6632 16.445 30.8486C16.6079 30.9397 16.731 31.0884 16.7902 31.2655C16.8049 31.4567 16.7441 31.6462 16.6208 31.7931C16.249 32.4043 15.7716 32.9446 15.2107 33.3888C14.6226 33.8093 13.9293 34.0585 13.2079 34.1085H13.1103L13.0614 34.0401C13.0339 34.0017 13.0163 33.9571 13.0103 33.9102C13.0042 33.8634 13.0098 33.8158 13.0265 33.7716C13.0433 33.7275 13.0707 33.6881 13.1063 33.6572C13.142 33.6262 13.1847 33.6045 13.2307 33.594L14.4454 33.3399L13.335 33.9C12.9151 34.1095 12.4422 34.1888 11.977 34.128L11.5048 34.0661L11.9086 33.8154C11.9614 33.7813 12.0032 33.7327 12.0291 33.6754L12.1789 33.9033C11.6232 33.8722 11.0863 33.691 10.6255 33.379L10.3194 33.1641L10.6808 33.0957L11.1205 33.011L11.0912 33.2943C10.4976 33.0228 10.0084 32.5656 9.69735 31.9917L9.62571 31.8452L9.769 31.8224L10.1436 31.754L10.1012 31.9233L9.68761 31.5586L9.59318 31.4739L9.70065 31.4218L10.277 31.1483V31.2655H9.72343H9.41406L9.70387 31.1678C10.3031 30.9659 10.9023 30.7607 11.5113 30.5881C12.1222 30.4069 12.7493 30.2858 13.3838 30.2267Z" fill="#FBF6EC"></path> <path d="M16.8728 31.3323C15.9106 31.1887 14.9368 31.1375 13.9647 31.1792C13.4807 31.1989 12.998 31.2446 12.5188 31.316C12.0401 31.3844 11.5614 31.4788 11.0859 31.5895C11.544 31.416 12.0156 31.2809 12.496 31.1857C12.979 31.0947 13.4675 31.0359 13.9582 31.0099C14.9406 30.9649 15.924 31.0737 16.8728 31.3323Z" fill="#FBF6EC"></path> <path d="M12.8594 32.9219C12.9132 32.924 12.9653 32.941 13.0101 32.9709C13.0549 33.0007 13.0906 33.0424 13.1134 33.0912C13.142 33.1365 13.1572 33.189 13.1572 33.2426C13.1572 33.2962 13.142 33.3487 13.1134 33.394C13.0622 33.3221 13.0175 33.2459 12.9798 33.1661C12.933 33.0881 12.8928 33.0064 12.8594 32.9219Z" fill="#FBF6EC"></path> <path d="M13.3125 32.7969C13.4428 32.8769 13.5408 33.0003 13.5893 33.1453C13.615 33.2154 13.6293 33.289 13.6317 33.3635C13.6343 33.439 13.6222 33.5142 13.5959 33.585C13.5603 33.5218 13.5288 33.4566 13.5014 33.3895C13.4753 33.3277 13.4526 33.2626 13.4297 33.2007C13.3812 33.069 13.3421 32.9341 13.3125 32.7969Z" fill="#FBF6EC"></path> <path d="M13.7266 32.7109C13.7984 32.737 13.8642 32.7773 13.9202 32.8293C13.9761 32.8813 14.021 32.944 14.0523 33.0138C14.0857 33.0821 14.1056 33.1561 14.1109 33.232C14.1201 33.3079 14.1112 33.3849 14.0848 33.4567C14.0485 33.3957 14.0158 33.3327 13.9871 33.2678L13.8992 33.0887C13.8406 32.9682 13.7819 32.8542 13.7266 32.7109Z" fill="#FBF6EC"></path> <path d="M14.0938 32.4844C14.1713 32.5087 14.2432 32.5483 14.3053 32.6009C14.3674 32.6534 14.4182 32.7179 14.455 32.7905C14.4917 32.863 14.5135 32.9422 14.5191 33.0232C14.5248 33.1044 14.5141 33.1858 14.4878 33.2627C14.4194 33.1129 14.3673 32.9892 14.3054 32.8654C14.2436 32.7417 14.185 32.6277 14.0938 32.4844Z" fill="#FBF6EC"></path> <path d="M14.5156 32.25C14.6562 32.3065 14.7718 32.4117 14.8413 32.5463C14.8787 32.613 14.904 32.6858 14.9162 32.7613C14.9325 32.8375 14.9325 32.9163 14.9162 32.9925C14.8739 32.9327 14.8348 32.8707 14.7989 32.8068L14.6947 32.6277C14.628 32.5053 14.5682 32.3792 14.5156 32.25Z" fill="#FBF6EC"></path> <path d="M14.8125 32.0625C14.8909 32.0869 14.9638 32.1264 15.0269 32.179C15.0901 32.2315 15.1422 32.2959 15.1805 32.3686C15.2209 32.4401 15.2474 32.5186 15.2586 32.5998C15.2717 32.6806 15.265 32.7633 15.2391 32.8409C15.1968 32.7692 15.1675 32.7008 15.1317 32.639L15.0307 32.45C14.9656 32.3231 14.8907 32.2091 14.8125 32.0625Z" fill="#FBF6EC"></path> <path d="M15.1641 31.8047C15.3244 31.8667 15.4589 31.9816 15.5451 32.1304C15.5884 32.2036 15.6212 32.2825 15.6428 32.3648C15.6606 32.4486 15.6606 32.5351 15.6428 32.6189C15.5907 32.5504 15.5516 32.4821 15.5093 32.417L15.3855 32.2215C15.3074 32.0848 15.226 31.961 15.1641 31.8047Z" fill="#FBF6EC"></path> <path d="M15.4844 31.6562C15.5603 31.6623 15.6336 31.6864 15.6982 31.7266C15.7628 31.7669 15.8168 31.822 15.8556 31.8875C15.898 31.9509 15.9249 32.0236 15.9339 32.0994C15.943 32.1752 15.934 32.2521 15.9077 32.3238C15.8361 32.1903 15.7807 32.0828 15.7124 31.9787C15.642 31.8673 15.566 31.7597 15.4844 31.6562Z" fill="#FBF6EC"></path> <path d="M15.8125 31.4297C15.9206 31.4485 16.018 31.5065 16.086 31.5925C16.1173 31.6344 16.1425 31.6804 16.161 31.7293C16.1829 31.7818 16.1919 31.8387 16.1871 31.8954C16.1386 31.8712 16.0937 31.8405 16.0535 31.8042C16.0174 31.772 15.9837 31.7371 15.9526 31.7C15.8875 31.6207 15.8398 31.5286 15.8125 31.4297Z" fill="#FBF6EC"></path> <path d="M16.9193 15.2892C16.7138 16.7139 16.6788 18.1581 16.8151 19.5911C16.9226 21.024 17.1115 22.4503 17.219 23.8898C17.3744 26.7714 17.2654 29.6612 16.8933 32.5229C16.5676 35.3854 16.1085 38.2283 15.8316 41.0876C15.6786 42.514 15.6037 43.9501 15.5744 45.3797V46.4544C15.5744 46.8126 15.6004 47.1708 15.6135 47.5291C15.6265 47.8873 15.6395 48.2487 15.6916 48.5874C15.7242 48.9176 15.8457 49.2327 16.0433 49.4992L15.7437 49.5839C15.8917 48.4603 16.1625 47.3561 16.5514 46.2916V46.4185C16.3073 45.7763 16.2116 45.0872 16.2713 44.4028L16.2908 43.4095C16.2908 43.0839 16.3266 42.7582 16.3429 42.4163C16.4243 41.0941 16.5643 39.7752 16.7467 38.4661C17.0919 35.8413 17.5804 33.2556 17.9256 30.6308C18.3073 28.0222 18.4164 25.3811 18.2512 22.75C18.1536 21.4474 17.9712 20.1284 17.8866 18.8063C17.7667 17.4874 17.8369 16.1582 18.095 14.8594C17.8607 16.1606 17.8147 17.4887 17.9582 18.8031C18.0689 20.1056 18.2838 21.4082 18.4011 22.7369C18.6005 25.3804 18.5175 28.0376 18.1536 30.6634C17.8442 33.2881 17.3752 35.8738 17.0333 38.5052C16.8542 39.8078 16.7076 41.1104 16.6425 42.4358C16.6425 42.7615 16.6067 43.0871 16.5969 43.4128V44.3897C16.5429 45.025 16.6296 45.6644 16.8509 46.2622L16.8802 46.3241L16.8574 46.3892C16.4807 47.4312 16.2186 48.5112 16.0759 49.61L16.0238 50.0008L15.7763 49.6979C15.5416 49.3831 15.3964 49.0106 15.3562 48.62C15.3121 48.2579 15.2871 47.8937 15.2813 47.5291C15.2813 47.1676 15.2455 46.8061 15.2422 46.4446V45.3602C15.2748 43.9175 15.3562 42.4749 15.5157 41.0387C15.8056 38.1697 16.268 35.3268 16.6262 32.474C17.0309 29.635 17.1736 26.7647 17.0528 23.8995C16.9747 22.4667 16.8119 21.0338 16.7272 19.5944C16.6199 18.1568 16.6845 16.7115 16.9193 15.2892Z" fill="#FBF6EC"></path> <path d="M15.9252 39.2109C15.6827 39.6371 15.3044 39.9696 14.8506 40.1554C14.8188 40.1663 14.7882 40.1804 14.7594 40.1977C14.8327 40.2696 14.9147 40.332 15.0036 40.3833C15.1985 40.5033 15.4104 40.5934 15.6321 40.6504C15.3887 40.6897 15.1392 40.6592 14.9125 40.5624C14.8544 40.5375 14.7978 40.5092 14.7431 40.4778C14.6821 40.4446 14.6262 40.403 14.577 40.354C14.5434 40.3167 14.5189 40.2721 14.5054 40.2237C14.4988 40.1932 14.4982 40.1617 14.5039 40.1309C14.5094 40.1002 14.521 40.0709 14.538 40.0446C14.5898 39.9804 14.6586 39.9318 14.7366 39.9046C15.1613 39.7259 15.5608 39.4928 15.9252 39.2109Z" fill="#FBF6EC"></path> <path d="M17.6941 33.9219C17.815 34.0929 17.9466 34.2561 18.0881 34.4104C18.1598 34.4853 18.2314 34.5602 18.3064 34.6253C18.3964 34.6986 18.4812 34.778 18.5603 34.863C18.5884 34.9055 18.6033 34.9554 18.6033 35.0063C18.6033 35.0573 18.5884 35.1071 18.5603 35.1496C18.5156 35.2107 18.4547 35.258 18.3845 35.2864C18.2738 35.3287 18.1826 35.3645 18.0784 35.3971C17.8746 35.4681 17.6656 35.5226 17.4531 35.5599C17.6276 35.4328 17.8103 35.3174 18.0002 35.2147C18.0914 35.1626 18.1956 35.1171 18.2803 35.0714C18.3079 35.0584 18.3323 35.0395 18.3519 35.0161C18.3519 35.0161 18.2152 34.8891 18.1435 34.8109C18.0678 34.729 17.9991 34.6407 17.9383 34.5471C17.8128 34.3588 17.7295 34.1455 17.6941 33.9219Z" fill="#FBF6EC"></path> <path d="M17.1764 25C17.0283 25.1981 16.8355 25.3584 16.6136 25.4676C16.3917 25.5768 16.1471 25.632 15.8999 25.6285L16.0171 25.456C16.1151 25.6779 16.2688 25.8709 16.4632 26.0161C16.6683 26.1702 16.9072 26.2729 17.1601 26.3157C16.8834 26.3746 16.5947 26.3294 16.3492 26.1887C16.0918 26.0423 15.892 25.8125 15.7826 25.5373L15.7109 25.3615H15.8999C16.3518 25.3703 16.7961 25.2444 17.1764 25Z" fill="#FBF6EC"></path> <path d="M17.1641 15.25C17.1055 16.393 17.0534 17.5296 17.0827 18.6759C17.1023 19.2458 17.1283 19.8156 17.1967 20.3823C17.2651 20.9489 17.3758 21.5091 17.4638 22.0757C17.6661 23.2051 17.7826 24.3481 17.8122 25.4951C17.8412 26.6427 17.7319 27.7897 17.4865 28.9112C17.6741 27.7839 17.745 26.6402 17.6982 25.4984C17.6464 24.3577 17.518 23.2219 17.3139 22.0985C17.2293 21.5318 17.1283 20.9685 17.06 20.3986C16.9986 19.8275 16.9682 19.2535 16.9688 18.6791C16.9702 17.5334 17.0354 16.3885 17.1641 15.25Z" fill="#FBF6EC"></path> <path d="M17.8042 14.4766C17.7195 15.1669 17.6348 15.8476 17.5827 16.5347C17.5534 16.8766 17.5372 17.2218 17.5176 17.5638L17.4818 18.6026C17.426 18.259 17.3944 17.9118 17.3874 17.5638C17.3765 17.2162 17.3851 16.8683 17.4134 16.5217C17.4648 15.8273 17.596 15.1411 17.8042 14.4766Z" fill="#FBF6EC"></path> <path d="M16.4872 37.6641C16.422 38.4131 16.3504 39.162 16.2722 39.911C16.1974 40.6568 16.1192 41.4058 16.0606 42.1515C16.002 42.8973 15.9434 43.6496 15.9075 44.3986C15.8717 45.1476 15.8522 45.8998 15.8522 46.6521C15.7882 45.9017 15.7632 45.1484 15.7772 44.3953C15.7772 43.6398 15.8359 42.8876 15.8912 42.1386C15.9466 41.3895 16.041 40.6405 16.142 39.8948C16.2429 39.149 16.3602 38.4065 16.4872 37.6641Z" fill="#FBF6EC"></path> <path d="M12.8441 1.43077C12.5543 1.75642 12.2644 2.17978 12.3296 2.61941C12.3386 2.6852 12.3656 2.74722 12.4077 2.79852C12.4718 2.84926 12.5507 2.87783 12.6324 2.87994C13.5117 2.99066 14.5863 2.79201 14.5636 1.64896C14.5408 0.505911 13.3456 0.844593 12.8441 1.43077Z" fill="#B2AC88"></path> <path d="M12.8391 1.42926C12.649 1.63785 12.5009 1.88109 12.4027 2.14569C12.3624 2.27632 12.3524 2.41443 12.3734 2.54951C12.3795 2.61032 12.3983 2.66916 12.4288 2.72211C12.4463 2.74107 12.4674 2.75632 12.4909 2.76695C12.5144 2.77758 12.5398 2.78337 12.5656 2.78398C12.8357 2.80465 13.1072 2.78932 13.3732 2.73839C13.6235 2.69952 13.8605 2.60002 14.0636 2.44856C14.2508 2.29223 14.3728 2.07151 14.4055 1.82981C14.438 1.70928 14.4441 1.58314 14.4233 1.46004C14.4025 1.33695 14.3553 1.2198 14.285 1.11663C14.1835 1.02837 14.06 0.969091 13.9277 0.945021C13.7953 0.920952 13.6589 0.932983 13.5328 0.97985C13.2641 1.06196 13.0239 1.21764 12.8391 1.42926ZM12.8391 1.42926C13.0286 1.2156 13.2665 1.05035 13.5328 0.947287C13.6679 0.889496 13.8126 0.85747 13.9594 0.852844C14.1172 0.843217 14.2736 0.888053 14.4023 0.97985C14.5134 1.09336 14.5976 1.23052 14.6483 1.38107C14.699 1.53163 14.7152 1.69171 14.6953 1.84935C14.6882 2.0121 14.6475 2.17161 14.5757 2.31788C14.504 2.46414 14.4028 2.59401 14.2785 2.69931C14.0272 2.8913 13.7246 3.00461 13.409 3.02497C13.1131 3.03885 12.8166 3.00811 12.5298 2.93378C12.4846 2.9251 12.4419 2.90697 12.4043 2.88059C12.3667 2.85421 12.3351 2.82018 12.3116 2.78073C12.2786 2.70708 12.2631 2.62687 12.266 2.54625C12.2671 2.39794 12.2993 2.2515 12.3604 2.11639C12.4836 1.86405 12.6451 1.63228 12.8391 1.42926Z" fill="#FBF6EC"></path> <path d="M19.4871 5.84543C17.784 5.62398 16.045 5.19412 14.6838 4.15528C14.3027 3.86219 13.5505 3.2923 13.5472 2.76148C13.5309 2.28276 14.1269 1.63145 14.4363 1.32534C14.8311 0.918142 15.3123 0.604662 15.8443 0.407974C16.3763 0.211285 16.9456 0.136391 17.5104 0.188804C17.9664 0.240909 18.4125 0.377684 18.8717 0.39071C19.7998 0.416763 20.7637 -0.0521803 21.6202 0.309296C22.3269 0.608899 22.6981 1.38721 22.8968 2.12645C23.0851 2.82918 23.1739 3.55487 23.1606 4.28229C23.1673 4.50403 23.132 4.72505 23.0563 4.9336C22.9104 5.22082 22.6717 5.45033 22.379 5.5849C21.5062 6.03757 20.4609 5.97895 19.4871 5.85194" fill="#B2AC88"></path> <path d="M19.4883 5.8478C18.4315 5.76241 17.3898 5.54356 16.388 5.19649C15.8856 5.01231 15.405 4.77312 14.9552 4.4833C14.4965 4.19855 14.079 3.85231 13.7144 3.45423C13.6225 3.34276 13.5448 3.22023 13.4832 3.0895C13.4125 2.9405 13.3898 2.77326 13.4181 2.61079C13.4841 2.33152 13.6109 2.07024 13.7893 1.8455C14.1057 1.39984 14.4956 1.01113 14.9421 0.695938C15.3954 0.380543 15.9108 0.165415 16.4538 0.0648982C16.9968 -0.035619 17.5551 -0.0192151 18.0912 0.113016C18.3414 0.167539 18.5949 0.205614 18.85 0.226995C19.0985 0.231259 19.347 0.213824 19.5925 0.17489C20.126 0.0525486 20.6744 0.00758207 21.2208 0.0413717C21.5083 0.0832431 21.7811 0.195068 22.0154 0.367027C22.2401 0.534109 22.4303 0.743122 22.5755 0.982514C22.8506 1.45346 23.0361 1.97131 23.1226 2.50983C23.2265 3.03633 23.2756 3.57218 23.2691 4.1088C23.281 4.38437 23.2446 4.65989 23.1616 4.92294C23.0468 5.18229 22.8531 5.39881 22.608 5.54168C22.1386 5.81154 21.609 5.95934 21.0677 5.97155C20.5383 5.98581 20.0089 5.94433 19.4883 5.8478C20.0104 5.90745 20.537 5.91835 21.0612 5.88036C21.5788 5.84511 22.0794 5.68052 22.5168 5.40165C22.7245 5.27165 22.8853 5.07888 22.976 4.85129C23.0432 4.60769 23.0675 4.35422 23.0477 4.10229C23.0388 3.58257 22.9755 3.06521 22.8588 2.55868C22.762 2.05664 22.5815 1.57446 22.3247 1.13232C22.2035 0.922286 22.0361 0.742527 21.8353 0.606576C21.6345 0.470627 21.4054 0.382038 21.1654 0.347487C20.653 0.325511 20.1401 0.37483 19.6413 0.494032C19.3706 0.542351 19.0957 0.564164 18.8207 0.559163C18.5502 0.540364 18.2814 0.502274 18.0163 0.445184C17.5229 0.322539 17.0092 0.304788 16.5085 0.393079C16.0082 0.491146 15.5336 0.691843 15.1147 0.982514C14.6939 1.27373 14.3251 1.63373 14.0238 2.04741C13.8707 2.23925 13.7598 2.46117 13.6981 2.69871C13.6888 2.81141 13.7034 2.9248 13.741 3.03145C13.7786 3.13809 13.8383 3.23557 13.9163 3.31746C14.2567 3.70538 14.6464 4.04698 15.0756 4.3335C15.5119 4.61719 15.9769 4.85406 16.463 5.04017C17.4372 5.42417 18.4523 5.69515 19.4883 5.8478Z" fill="#FBF6EC"></path> <path d="M15.9939 1.49058C16.5279 1.2496 17.1336 1.59805 17.7198 1.63387C17.9648 1.61351 18.2113 1.6457 18.4428 1.7283C18.6101 1.83974 18.7405 1.99845 18.8173 2.18422C19.1362 2.81085 19.3256 3.49532 19.3742 4.19677C19.3926 4.34512 19.3758 4.49571 19.3254 4.6364C19.2709 4.7347 19.1973 4.82108 19.109 4.89044C19.0206 4.95979 18.9192 5.01073 18.8108 5.04022C18.4348 5.1588 18.0385 5.19889 17.6463 5.15799C17.2542 5.1171 16.8747 4.9961 16.5312 4.80249C16.0036 4.52894 14.789 3.77668 14.8541 3.10583C14.8899 2.67922 15.5966 1.66968 15.9939 1.49058Z" fill="#B2AC88"></path> <path d="M15.9951 1.49478C16.254 1.3951 16.5376 1.37915 16.806 1.44918C17.0763 1.50129 17.3433 1.57619 17.6136 1.6055C17.8934 1.58527 18.1746 1.60834 18.4473 1.67389C18.6918 1.82751 18.8803 2.05593 18.9846 2.3252C19.2397 2.82731 19.4123 3.3672 19.4959 3.92416C19.5177 4.06651 19.5308 4.21008 19.535 4.35402C19.5453 4.52906 19.4959 4.70241 19.3949 4.84577C19.1822 5.08048 18.8965 5.23653 18.584 5.28866C18.0114 5.40462 17.4171 5.34679 16.8777 5.12257C16.3614 4.89327 15.8835 4.58571 15.461 4.21074C15.2428 4.02741 15.0587 3.80691 14.9172 3.55943C14.844 3.43302 14.8079 3.28856 14.813 3.14259C14.8317 3.00078 14.877 2.86378 14.9465 2.73878C15.0713 2.4933 15.222 2.26186 15.3959 2.04839C15.5556 1.82476 15.7596 1.63632 15.9951 1.49478ZM15.9951 1.49478C15.763 1.64275 15.5627 1.83536 15.4057 2.06142C15.2414 2.28108 15.1016 2.51805 14.9889 2.76809C14.9273 2.88584 14.8938 3.01626 14.8911 3.1491C14.8952 3.27976 14.9371 3.40643 15.0116 3.51384C15.163 3.7336 15.3514 3.92534 15.5685 4.08048C15.9994 4.40188 16.4743 4.65961 16.9786 4.84577C17.4685 5.02446 17.9986 5.0628 18.5092 4.95649C18.7447 4.92323 18.9637 4.81604 19.1344 4.65037C19.2582 4.5136 19.2256 4.23354 19.2061 3.9665C19.1625 3.43032 19.0361 2.90412 18.8316 2.40661C18.7595 2.15373 18.6076 1.93096 18.3984 1.77158C18.1427 1.68979 17.8756 1.64913 17.6071 1.65109C17.3303 1.61201 17.0697 1.52083 16.8027 1.46221C16.5369 1.38716 16.254 1.39856 15.9951 1.49478Z" fill="#FBF6EC"></path> <path d="M14.9016 2.65344C15.0644 2.73811 15.1654 2.91071 15.3249 2.99864C15.6246 3.16147 15.9763 2.97584 16.3215 2.95955C16.4849 2.95751 16.647 2.99078 16.7965 3.05711C16.946 3.12342 17.0794 3.22123 17.1877 3.34383C17.4007 3.59706 17.5263 3.91228 17.5459 4.24264C17.5633 4.37838 17.5535 4.51623 17.5172 4.64816C17.4809 4.78011 17.4187 4.90351 17.3342 5.01118C17.0378 5.33684 16.5103 5.30101 16.113 5.11539C15.7157 4.92977 15.3901 4.6204 14.9928 4.43803C14.4782 4.2003 14.0158 4.14494 14.0158 3.50992C14.006 3.07679 14.3773 2.3864 14.9016 2.65344Z" fill="#B2AC88"></path> <path d="M14.8955 2.64933C15.0811 2.74376 15.1886 2.94893 15.3872 3.01732C15.5874 3.06227 15.7962 3.04985 15.9897 2.98149C16.1921 2.91401 16.4081 2.89834 16.6182 2.9359C16.8337 2.98034 17.033 3.08281 17.1946 3.23225C17.3546 3.38811 17.4809 3.57522 17.5654 3.78195C17.65 3.98868 17.6912 4.2106 17.6864 4.43391C17.6885 4.67743 17.6069 4.91429 17.4551 5.10476C17.2849 5.28596 17.0519 5.39543 16.8038 5.41088C16.5717 5.41973 16.3405 5.37749 16.1264 5.28713C15.9301 5.19805 15.7435 5.08892 15.5696 4.96148C15.4002 4.84098 15.244 4.71398 15.0746 4.60977C14.9052 4.50556 14.7197 4.43066 14.5307 4.33622C14.321 4.25651 14.145 4.10702 14.0325 3.91287C13.9471 3.70567 13.9378 3.47491 14.0064 3.26156C14.0641 3.05802 14.1767 2.87435 14.3321 2.73074C14.4055 2.65956 14.4994 2.61336 14.6006 2.59874C14.7017 2.58412 14.805 2.60182 14.8955 2.64933ZM14.8955 2.64933C14.8043 2.60151 14.7002 2.58454 14.5986 2.60099C14.497 2.61743 14.4035 2.66639 14.3321 2.74051C14.1911 2.88356 14.0949 3.06465 14.0553 3.26156C14.0089 3.45497 14.0344 3.65865 14.1269 3.83471C14.2386 3.99363 14.4021 4.10877 14.5893 4.16036C14.7783 4.23201 14.9802 4.29063 15.1788 4.38507C15.3672 4.48312 15.5499 4.59184 15.7259 4.71072C16.0306 4.94428 16.4036 5.07128 16.7875 5.0722C16.9557 5.06546 17.1148 4.99388 17.2313 4.87246C17.3479 4.75104 17.413 4.58921 17.4128 4.42089C17.4329 4.23062 17.4144 4.03824 17.3585 3.85527C17.3025 3.6723 17.2102 3.50249 17.0871 3.356C16.9593 3.20533 16.7926 3.09268 16.6052 3.03034C16.4109 2.97972 16.2068 2.97972 16.0125 3.03034C15.81 3.08575 15.5962 3.08575 15.3937 3.03034C15.1788 2.95544 15.0811 2.74702 14.8955 2.64933Z" fill="#FBF6EC"></path> <path d="M13.0314 5.9774C12.4142 6.24839 11.7511 6.39978 11.0774 6.42357C10.602 6.43984 9.2994 6.46262 8.9737 6.05881C8.64807 5.655 9.01934 4.6878 9.16585 4.3133C9.39623 3.71242 9.78301 3.184 10.2861 2.78273C10.5927 2.50952 10.9892 2.35881 11.3998 2.35938C11.8167 2.39194 12.2173 2.66874 12.6276 2.57431C12.7839 2.54174 12.9272 2.45381 13.0867 2.43102C13.5004 2.37891 13.8195 2.75667 14.0214 3.13769C14.2999 3.56552 14.424 4.07563 14.3731 4.5836C14.2493 5.23491 13.6404 5.70385 13.0248 5.9774" fill="#B2AC88"></path> <path d="M13.0289 5.98278C12.4386 6.28188 11.7962 6.46433 11.1368 6.52009C10.8117 6.543 10.4856 6.54844 10.1598 6.53642C9.81756 6.53357 9.47826 6.47186 9.15686 6.35401C9.06591 6.31592 8.98383 6.25937 8.91585 6.18794C8.84319 6.11297 8.7925 6.01947 8.76933 5.91764C8.7306 5.74005 8.72401 5.55698 8.74977 5.37706C8.79591 5.04359 8.87781 4.71605 8.99402 4.4001C9.20775 3.74844 9.5937 3.16671 10.111 2.71646C10.3762 2.48143 10.6948 2.31485 11.0391 2.23123C11.2207 2.19376 11.4079 2.19376 11.5895 2.23123C11.7654 2.27031 11.9152 2.32893 12.0747 2.37452C12.2114 2.42387 12.356 2.44814 12.5013 2.44616C12.6516 2.4241 12.7983 2.3825 12.9377 2.32241C13.0352 2.2914 13.1378 2.28032 13.2397 2.28983C13.3415 2.29934 13.4404 2.32925 13.5304 2.37778C13.6842 2.47272 13.8172 2.59792 13.9212 2.74576C14.1159 3.02404 14.2695 3.32895 14.3771 3.65109C14.4988 3.97577 14.5226 4.32906 14.4455 4.66713C14.3466 4.99486 14.1501 5.28458 13.8821 5.49755C13.6274 5.70673 13.3388 5.87083 13.0289 5.98278C13.319 5.83898 13.5857 5.65234 13.8202 5.42916C14.0531 5.21607 14.2146 4.93631 14.2826 4.62805C14.3369 4.32285 14.3019 4.00847 14.1817 3.72273C14.0686 3.43068 13.914 3.15648 13.7225 2.90859C13.6514 2.79147 13.5451 2.69979 13.4188 2.64658C13.2925 2.59337 13.1526 2.58136 13.0191 2.61224C12.8609 2.68466 12.6931 2.73401 12.5209 2.75879C12.3397 2.76424 12.1588 2.73779 11.9868 2.68064C11.7108 2.55873 11.4064 2.51588 11.1075 2.55688C10.818 2.63735 10.5515 2.78458 10.3292 2.98675C9.84623 3.38676 9.48047 3.91002 9.27085 4.50105C9.15984 4.79606 9.07914 5.10157 9.02984 5.41288C9.00705 5.55745 9.00705 5.70469 9.02984 5.84926C9.04123 5.91018 9.06819 5.96711 9.10813 6.01449C9.14813 6.06186 9.19965 6.09807 9.25781 6.11955C9.5456 6.23877 9.85193 6.30709 10.1631 6.32145C10.488 6.34901 10.8141 6.3599 11.1401 6.35401C11.7867 6.34287 12.4262 6.21718 13.0289 5.98278Z" fill="#FBF6EC"></path> <path d="M13.3771 13.6187C12.563 13.2116 11.8758 12.5864 11.0747 12.1565C10.1922 11.6811 9.14355 11.4303 8.4695 10.6845C8.1826 10.3441 7.96178 9.95314 7.81817 9.53168C7.45045 8.5713 7.29703 7.54206 7.36874 6.51617C7.37659 6.22987 7.44659 5.94873 7.57393 5.69223C7.64032 5.56516 7.73981 5.45842 7.86197 5.38331C7.98406 5.30821 8.12425 5.26755 8.2676 5.26562C8.53684 5.32821 8.79273 5.4385 9.02311 5.59128C9.69393 5.88111 10.4983 5.54569 11.192 5.77364C11.6993 6.00091 12.1285 6.37237 12.4262 6.8418C13.5887 8.33003 14.7709 9.85409 15.5003 11.6094C15.7186 12.1369 16.2591 13.1628 15.826 13.6903C15.2887 14.3058 13.9632 13.9085 13.3771 13.6187Z" fill="#B2AC88"></path> <path d="M13.3701 13.6207C12.3606 13.1159 11.5334 12.3181 10.475 11.898C9.94477 11.6994 9.43268 11.4553 8.94445 11.1685C8.70085 11.0124 8.48142 10.8215 8.29312 10.6019C8.11344 10.3761 7.96249 10.1289 7.84376 9.86591C7.3635 8.81818 7.14774 7.66869 7.21521 6.51818C7.22103 6.21495 7.29097 5.91641 7.4204 5.64215C7.49534 5.49075 7.60819 5.36137 7.748 5.26663C7.88787 5.17188 8.0499 5.11501 8.21825 5.10156C8.52028 5.1454 8.80857 5.2567 9.06167 5.42722C9.30154 5.52227 9.55996 5.56125 9.81724 5.5412C10.0908 5.5412 10.3741 5.51189 10.6704 5.52166C10.98 5.52779 11.2833 5.61058 11.5529 5.76264C12.0262 6.10452 12.4324 6.53065 12.7514 7.0197C13.4438 7.91343 14.0843 8.84635 14.6695 9.81382C14.9568 10.3016 15.2124 10.8074 15.4348 11.3281C15.6785 11.8384 15.8631 12.3748 15.9851 12.9271C16.017 13.0683 16.0151 13.2151 15.9794 13.3555C15.9438 13.4958 15.8754 13.6258 15.78 13.7346C15.5669 13.9291 15.2867 14.0331 14.9984 14.0245C14.432 14.0155 13.8751 13.8774 13.3701 13.6207ZM13.3701 13.6207C13.8768 13.8696 14.4339 13.9989 14.9984 13.9984C15.2783 14.0033 15.5491 13.8994 15.7539 13.7086C15.8431 13.6029 15.9062 13.4776 15.9378 13.3429C15.9695 13.2083 15.969 13.068 15.9363 12.9336C15.8 12.3903 15.5988 11.8655 15.3371 11.3704C15.093 10.8637 14.8167 10.3731 14.5099 9.90173C13.8917 8.96515 13.2232 8.0628 12.5071 7.19875C12.2046 6.74653 11.8229 6.35267 11.3803 6.03619C10.9407 5.76915 10.3871 5.8636 9.81072 5.88313C9.50427 5.8981 9.19838 5.84471 8.91515 5.72682C8.63509 5.59004 8.42015 5.41744 8.2085 5.42396C8.09509 5.4333 7.9861 5.47218 7.89236 5.53675C7.79869 5.60131 7.7235 5.6893 7.67439 5.79195C7.56135 6.02823 7.4992 6.28563 7.49205 6.54748C7.39629 7.65565 7.56945 8.77059 7.99679 9.79749C8.10097 10.0522 8.2366 10.2929 8.40059 10.5139C8.573 10.7312 8.77718 10.9211 9.00635 11.0773C9.47705 11.3817 9.97534 11.6412 10.4946 11.8524C11.5529 12.279 12.3703 13.1029 13.3701 13.6207Z" fill="#FBF6EC"></path> <path d="M19.6817 13.4199C20.2697 13.227 20.8301 12.9589 21.3491 12.622C22.0367 12.2642 22.6668 11.8054 23.2183 11.2608C24.2246 10.1634 24.5209 8.6067 24.7099 7.13474C24.7998 6.65436 24.8086 6.16234 24.7359 5.67906C24.6947 5.44126 24.598 5.21652 24.4537 5.02303C24.3094 4.82953 24.1216 4.67273 23.9055 4.56533C23.2835 4.31132 22.58 4.64348 22.0427 5.04404C20.9457 5.90415 20.0657 7.00948 19.4733 8.27126C18.8936 9.47892 18.4564 10.7499 18.1707 12.0587C17.8874 13.2701 18.3856 13.7813 19.6817 13.4199Z" fill="#B2AC88"></path> <path d="M19.6799 13.4162C20.1671 13.2588 20.6321 13.0399 21.0639 12.7649C21.5035 12.5043 21.9464 12.2503 22.3665 11.954C22.7843 11.6674 23.149 11.3104 23.4444 10.8988C23.7285 10.4838 23.9481 10.0281 24.0957 9.54738C24.3794 8.57643 24.5552 7.57712 24.6201 6.56763C24.6859 6.08926 24.5981 5.60235 24.3693 5.17709C24.2553 4.98118 24.0867 4.82274 23.8841 4.72117C23.6808 4.62678 23.453 4.59831 23.2328 4.63976C22.7566 4.74151 22.3154 4.96605 21.953 5.29107C21.5609 5.60283 21.1999 5.95182 20.875 6.33313C20.2142 7.10162 19.6659 7.96023 19.2468 8.88301C18.8223 9.80903 18.4822 10.7714 18.2307 11.7586C18.161 12.0037 18.112 12.2543 18.0842 12.5076C18.0503 12.7588 18.1007 13.0142 18.2274 13.2338C18.3059 13.3299 18.4055 13.4066 18.5185 13.458C18.6314 13.5094 18.7547 13.5341 18.8788 13.5301C19.1499 13.5312 19.4198 13.4928 19.6799 13.4162ZM19.6799 13.4162C19.436 13.4907 19.1826 13.5302 18.9276 13.5334C18.7989 13.5332 18.6712 13.5112 18.5499 13.4683C18.4282 13.4197 18.3215 13.34 18.2405 13.2371C18.1059 13.0142 18.0487 12.7532 18.0776 12.4945C18.1011 12.2349 18.1468 11.9778 18.2144 11.726C18.4347 10.7254 18.7387 9.74491 19.123 8.7951C19.5035 7.83326 20.0248 6.93332 20.6699 6.12475C20.9995 5.72232 21.3695 5.3546 21.7738 5.02729C22.177 4.66311 22.669 4.41152 23.2002 4.29782C23.4877 4.25376 23.7818 4.29805 24.0437 4.42483C24.298 4.55746 24.5085 4.76109 24.6494 5.011C24.9094 5.49628 25.0075 6.05196 24.9294 6.59693C24.8266 7.62345 24.6081 8.63504 24.2782 9.61251C24.1003 10.0983 23.8512 10.5549 23.5389 10.9673C23.2182 11.3724 22.8331 11.7223 22.3991 12.0028C21.9757 12.2926 21.5296 12.5402 21.0965 12.7942C20.6519 13.0594 20.1761 13.2683 19.6799 13.4162Z" fill="#FBF6EC"></path> <path d="M11.9304 4.45757C11.4615 4.63342 11.3052 5.21309 11.2531 5.71134C11.1207 7.07676 11.3011 8.45442 11.7807 9.73967C11.9654 10.2539 12.2196 10.7403 12.5362 11.1856C12.9665 11.7321 13.4607 12.2252 14.0082 12.6543C14.8842 13.3968 15.9458 14.1816 17.0693 13.9569C18.1928 13.7322 18.8604 12.5533 19.3717 11.5113C19.901 10.4956 20.337 9.43391 20.6743 8.33935C20.9415 7.55961 20.9665 6.71726 20.746 5.92301C20.4789 5.14796 19.7462 4.49013 18.9288 4.53247C18.4999 4.60317 18.0797 4.71888 17.675 4.87766C17.4023 4.96126 17.1156 4.98906 16.8319 4.95941C16.5482 4.92975 16.2735 4.84325 16.0239 4.70506C15.3889 4.32079 14.9265 3.56202 14.07 3.88116C13.7834 3.99188 13.5718 4.23938 13.2656 4.34033C12.8423 4.47059 12.3603 4.298 11.9304 4.45757Z" fill="#B2AC88"></path> <path d="M11.9315 4.45856C11.7822 4.53121 11.6518 4.63757 11.5507 4.76926C11.4495 4.90094 11.3803 5.05433 11.3486 5.21733C11.2763 5.53813 11.237 5.86549 11.2314 6.1943C11.209 6.86222 11.2603 7.53064 11.3845 8.18728C11.5124 8.84665 11.7156 9.48918 11.9902 10.1022C12.2557 10.7125 12.6373 11.2655 13.1136 11.7305C13.5945 12.1894 14.1034 12.618 14.6378 13.0135C15.1422 13.4222 15.7394 13.7006 16.3767 13.8244C16.687 13.8636 17.0022 13.8289 17.2965 13.7231C17.5908 13.6172 17.8559 13.4432 18.0701 13.2154C18.5131 12.7349 18.874 12.1848 19.1383 11.5872C19.7277 10.392 20.3367 9.19684 20.6395 7.91374C20.813 7.28823 20.8208 6.62836 20.6623 5.99891C20.5733 5.69128 20.4118 5.40949 20.1914 5.17717C19.971 4.94485 19.6981 4.76878 19.3955 4.66372C19.0854 4.57783 18.7567 4.58576 18.4511 4.68651C18.1312 4.79963 17.805 4.89422 17.4741 4.96983C17.1385 5.02926 16.7937 5.01369 16.4647 4.92424C16.1403 4.82088 15.8432 4.64618 15.5952 4.41297C15.355 4.18249 15.0761 3.99618 14.7712 3.8626C14.6126 3.81564 14.4453 3.80561 14.2822 3.83327C14.119 3.86093 13.9644 3.92555 13.8301 4.02218C13.6943 4.12103 13.5517 4.21026 13.4035 4.28921C13.2492 4.35611 13.0831 4.39154 12.915 4.39342C12.5858 4.36734 12.2545 4.38928 11.9315 4.45856ZM11.9315 4.45856C12.2577 4.38147 12.594 4.35619 12.9281 4.38366C13.0943 4.37786 13.2579 4.34028 13.41 4.27293C13.555 4.19089 13.6953 4.10064 13.8301 4.00264C13.9679 3.89909 14.1281 3.82925 14.2977 3.79871C14.4674 3.76817 14.6418 3.77779 14.8071 3.82678C15.1188 3.95845 15.4045 4.14485 15.6505 4.37714C15.895 4.60022 16.1883 4.76304 16.507 4.8526C16.8286 4.92468 17.1623 4.92468 17.484 4.8526C17.8007 4.77508 18.1128 4.6794 18.4186 4.56602C18.7483 4.44449 19.1073 4.42631 19.4476 4.51392C19.7838 4.61948 20.0896 4.80454 20.339 5.0534C20.5885 5.30227 20.7742 5.60761 20.8805 5.94354C21.0788 6.61133 21.0923 7.32032 20.9196 7.99519C20.5693 9.29209 20.0734 10.5451 19.4411 11.7305C19.1536 12.356 18.764 12.9293 18.2883 13.4271C18.0385 13.6849 17.7312 13.88 17.3917 13.9965C17.0522 14.1131 16.6899 14.1479 16.3344 14.0979C15.6606 13.9565 15.0333 13.6474 14.5107 13.1991C13.9828 12.7801 13.4803 12.3299 13.0062 11.8509C12.5343 11.3609 12.1606 10.7849 11.9055 10.1542C11.6505 9.53146 11.4638 8.88285 11.3486 8.21988C11.2315 7.55912 11.1889 6.88734 11.2216 6.21709C11.2233 5.88069 11.2614 5.54546 11.3356 5.21733C11.3686 5.05306 11.4398 4.89884 11.5433 4.76706C11.6468 4.63528 11.7798 4.52962 11.9315 4.45856Z" fill="#FBF6EC"></path> <path d="M15.9986 13.7728C15.5926 14.1132 15.2818 14.553 15.0966 15.0494C14.8948 15.5524 14.6462 16.0354 14.354 16.492C14.0291 16.9325 13.6276 17.3108 13.1686 17.609C12.7172 17.9075 12.2262 18.141 11.7097 18.3027V18.2147C12.3596 18.3294 13.0286 18.2641 13.6441 18.0258C14.252 17.7765 14.811 17.4215 15.2952 16.9772C15.8085 16.5599 16.2836 16.0979 16.715 15.5965C17.1493 15.0962 17.4328 14.483 17.5324 13.8282H17.5585C17.5437 14.5166 17.3061 15.1816 16.8811 15.7235C16.4774 16.2665 16.0081 16.7576 15.4841 17.1856C14.9673 17.6494 14.3657 18.0088 13.7125 18.244C13.0566 18.453 12.3559 18.4777 11.6869 18.3156L11.5078 18.2734L11.6836 18.2277C12.1976 18.0889 12.679 17.8498 13.1003 17.5243C13.5183 17.1946 13.8829 16.8025 14.1814 16.3617C14.4677 15.9149 14.7213 15.448 14.9402 14.9647C15.0659 14.7237 15.2119 14.4938 15.3766 14.2775C15.5467 14.062 15.7581 13.8826 15.9986 13.75V13.7728Z" fill="#FBF6EC"></path> <path d="M17.5547 14.0725C18.0985 14.5772 18.447 15.2513 18.916 15.7919C19.1437 16.0638 19.417 16.2941 19.7236 16.4725C20.0224 16.633 20.3648 16.6936 20.7005 16.6451C20.8647 16.621 21.0215 16.561 21.1597 16.4693C21.1936 16.4473 21.2262 16.4234 21.2574 16.3977C21.2574 16.3977 21.2574 16.4628 21.2574 16.4563L21.0718 16.2902C20.7543 16.0829 20.4755 15.8217 20.2479 15.5184C20.0615 15.1913 19.9294 14.836 19.8571 14.4665C19.788 14.1129 19.6036 13.7923 19.3328 13.5547C19.6487 13.7626 19.8798 14.0768 19.9841 14.4404C20.0744 14.7869 20.2196 15.1168 20.4139 15.4174C20.6452 15.688 20.9151 15.9228 21.2151 16.1143C21.2932 16.1697 21.3551 16.2087 21.4496 16.2804C21.4747 16.3027 21.4932 16.3316 21.5029 16.3638C21.5127 16.396 21.5134 16.4302 21.5049 16.4628C21.492 16.5057 21.4671 16.5441 21.4332 16.5735C21.3909 16.6093 21.3551 16.6419 21.3128 16.6712C21.1462 16.7866 20.956 16.8634 20.7559 16.8959C20.3619 16.9502 19.9611 16.8723 19.6161 16.6744C19.2858 16.4822 18.9986 16.2239 18.7727 15.9157C18.307 15.3132 18.0204 14.6423 17.5547 14.0725Z" fill="#FBF6EC"></path> <path d="M19.9531 13.3942C20.4472 13.5512 20.9806 13.5305 21.4609 13.3355C21.9309 13.1371 22.3696 12.8717 22.7636 12.5475C23.1756 12.211 23.6109 11.9042 24.0662 11.6291C24.5341 11.3477 25.0703 11.2001 25.6163 11.2025L25.5837 11.4077C25.1691 11.3116 24.7457 11.2592 24.3202 11.2513C24.1052 11.2513 23.8903 11.2513 23.6689 11.2513C23.4474 11.2513 23.239 11.2937 23.0176 11.3295C23.2238 11.2621 23.4351 11.2109 23.6493 11.1765C23.8642 11.1351 24.0819 11.1101 24.3007 11.1015C24.7366 11.0787 25.1736 11.106 25.6033 11.183L25.5805 11.3946C25.0769 11.4059 24.5859 11.5546 24.1606 11.8245C23.7209 12.096 23.2959 12.3906 22.8873 12.707C22.4699 13.0386 21.9968 13.2933 21.4902 13.4593C20.9887 13.6371 20.4378 13.6138 19.9531 13.3942Z" fill="#FBF6EC"></path> <path d="M12.5559 13L10.6019 13.2963C9.94396 13.3601 9.29111 13.4689 8.64801 13.622C8.02927 13.8109 7.57338 14.2961 7.06212 14.7227C6.80269 14.9478 6.5106 15.1323 6.19585 15.2698C5.86813 15.418 5.50053 15.4535 5.15047 15.3708L5.24819 15.1493C5.91578 15.5564 6.78205 15.4522 7.52775 15.1884C8.27351 14.9246 8.99649 14.4687 9.80737 14.231C10.2136 14.1153 10.636 14.0668 11.0579 14.0877C11.4747 14.1039 11.885 14.1625 12.2921 14.2049C12.6971 14.258 13.1067 14.2657 13.5133 14.2277C13.9223 14.1912 14.3143 14.0474 14.6498 13.8109C14.3293 14.0746 13.9433 14.2468 13.5329 14.3091C13.1211 14.3699 12.7035 14.3819 12.2888 14.3449C11.4715 14.2765 10.641 14.1723 9.87902 14.4394C9.11699 14.7064 8.40705 15.1265 7.61895 15.4163C7.2192 15.5712 6.79674 15.6592 6.36844 15.6768C5.92952 15.6952 5.49515 15.5818 5.12116 15.3512C5.10724 15.3429 5.09515 15.3318 5.08559 15.3187C5.07604 15.3056 5.0692 15.2907 5.06559 15.2749C5.06192 15.2591 5.06154 15.2427 5.06433 15.2266C5.06718 15.2107 5.07325 15.1954 5.08211 15.1818C5.09642 15.1598 5.11737 15.1428 5.14199 15.1334C5.16654 15.1241 5.19351 15.1228 5.21889 15.1298C5.51762 15.1991 5.83078 15.1694 6.11117 15.0451C6.40604 14.9214 6.67971 14.7522 6.92205 14.5436C7.17604 14.3384 7.41705 14.1104 7.6906 13.8923C7.96313 13.6839 8.27085 13.5261 8.59921 13.4266C8.91933 13.3415 9.24617 13.2837 9.57617 13.254L10.5531 13.153L12.5559 13Z" fill="#FBF6EC"></path> <path d="M17.0298 14.0469C16.9591 14.449 16.8215 14.8365 16.6228 15.1932C16.4239 15.561 16.1007 15.8461 15.7109 15.9976C16.0171 15.7529 16.2726 15.4509 16.4632 15.1085C16.6781 14.7731 16.8312 14.4019 17.0298 14.0469Z" fill="#FBF6EC"></path> <path d="M17.8672 13.8594C18.1818 14.0089 18.4555 14.2324 18.665 14.5107C18.7702 14.6503 18.8597 14.801 18.9321 14.9601C19.006 15.1171 19.0575 15.2837 19.0852 15.4551C18.994 15.3053 18.9093 15.162 18.8181 15.022C18.7269 14.8819 18.6325 14.7451 18.5283 14.6149C18.3232 14.3501 18.1024 14.0978 17.8672 13.8594Z" fill="#FBF6EC"></path> <path d="M18.125 13.5C18.3372 13.5954 18.5286 13.7315 18.6884 13.9006C18.7698 13.9822 18.8429 14.0716 18.9066 14.1676C18.9742 14.262 19.029 14.3649 19.0694 14.4737C18.9773 14.4051 18.8892 14.3311 18.8056 14.2523C18.721 14.1774 18.6461 14.096 18.5679 14.0178C18.4077 13.8563 18.2597 13.6833 18.125 13.5Z" fill="#FBF6EC"></path> <path d="M11.3594 13.7575C11.7594 13.7267 12.1611 13.7267 12.5611 13.7575C12.7597 13.7575 12.9616 13.7901 13.157 13.8194C13.2529 13.8349 13.3498 13.8425 13.4468 13.8422C13.4948 13.8436 13.5425 13.8353 13.5872 13.8179C13.632 13.8006 13.6728 13.7746 13.7074 13.7413C13.6826 13.7884 13.6475 13.8294 13.6046 13.861C13.5617 13.8925 13.5122 13.914 13.4599 13.9237C13.358 13.9434 13.2543 13.9521 13.1505 13.9497C12.9486 13.9497 12.7499 13.9497 12.5513 13.9269C12.1501 13.903 11.7514 13.8463 11.3594 13.7575Z" fill="#FBF6EC"></path> <path d="M15.3672 3.08594C15.5808 3.19627 15.7481 3.37925 15.8388 3.60194C15.9296 3.82462 15.9378 4.07238 15.8622 4.30063C15.8235 4.08358 15.7635 3.87088 15.6831 3.6656C15.5969 3.46257 15.491 3.26843 15.3672 3.08594Z" fill="#FBF6EC"></path> <path d="M12.1755 5.88946C12.0288 5.94425 11.8862 6.00955 11.7488 6.08485C11.6113 6.16125 11.4787 6.24608 11.3516 6.33885C11.3747 6.25434 11.4146 6.17536 11.469 6.10663C11.5233 6.03791 11.591 5.98086 11.668 5.9389C11.7449 5.89694 11.8295 5.87094 11.9167 5.86244C12.0039 5.85395 12.0919 5.86313 12.1755 5.88946Z" fill="#FBF6EC"></path> <path d="M12.2139 6.58509C12.0543 6.6861 11.8882 6.75768 11.7548 6.83914L11.53 6.95635C11.4518 6.99547 11.377 7.03775 11.2891 7.07686C11.3289 6.99249 11.3841 6.91629 11.4518 6.85218C11.5181 6.78686 11.5939 6.73192 11.6766 6.68933C11.84 6.59806 12.0282 6.56154 12.2139 6.58509Z" fill="#FBF6EC"></path> <path d="M12.4326 7C12.304 7.10816 12.168 7.20722 12.0256 7.29633C11.9539 7.33867 11.8888 7.38424 11.8139 7.42335C11.7414 7.46886 11.6651 7.5081 11.5859 7.54057C11.6208 7.45937 11.6706 7.38538 11.7325 7.32241C11.7921 7.25741 11.86 7.20044 11.9344 7.15304C12.0822 7.05494 12.2552 7.00184 12.4326 7Z" fill="#FBF6EC"></path> <path d="M12.6644 7.37597C12.5113 7.48667 12.368 7.57465 12.2313 7.67882L12.0229 7.82863C11.9512 7.88072 11.8829 7.9361 11.8047 7.98819C11.8289 7.89566 11.8722 7.80914 11.9317 7.7342C11.9882 7.65876 12.0563 7.59275 12.1336 7.53882C12.2861 7.42427 12.4739 7.36667 12.6644 7.37597Z" fill="#FBF6EC"></path> <path d="M12.7836 7.78125C12.6142 7.90176 12.4579 7.99619 12.3016 8.10688L12.0704 8.27948C11.9955 8.33815 11.9206 8.39998 11.8359 8.46188C11.8638 8.36157 11.9126 8.26834 11.9792 8.18834C12.0421 8.1053 12.1167 8.03182 12.2006 7.97011C12.3704 7.84771 12.5743 7.78163 12.7836 7.78125Z" fill="#FBF6EC"></path> <path d="M12.9157 8.20312C12.7627 8.33015 12.6194 8.43762 12.4826 8.55483C12.411 8.61344 12.3459 8.67534 12.2774 8.73395C12.209 8.79256 12.1407 8.86097 12.0625 8.92281C12.0826 8.82515 12.1212 8.7323 12.1765 8.64927C12.2308 8.56559 12.2966 8.48996 12.3719 8.42458C12.5236 8.29262 12.7149 8.21471 12.9157 8.20312Z" fill="#FBF6EC"></path> <path d="M13.1352 8.5C12.9467 8.60943 12.7708 8.73943 12.6109 8.88753C12.4532 9.0376 12.3114 9.20348 12.1875 9.38253C12.2105 9.14506 12.3195 8.92424 12.4941 8.76171C12.6687 8.59911 12.8967 8.50601 13.1352 8.5Z" fill="#FBF6EC"></path> <path d="M13.4665 8.90625C13.2712 9.07555 13.0823 9.23188 12.9097 9.39473C12.8185 9.47942 12.7371 9.56733 12.6524 9.65524L12.3984 9.93207C12.4291 9.80543 12.482 9.68524 12.5548 9.57707C12.76 9.24068 13.0902 8.99948 13.4731 8.90625H13.4665Z" fill="#FBF6EC"></path> <path d="M13.6469 9.38281C13.4464 9.52098 13.257 9.67446 13.0803 9.84199C12.9956 9.92338 12.9175 10.0113 12.8361 10.0992C12.7547 10.1872 12.683 10.2881 12.6016 10.3891C12.6207 10.2606 12.6638 10.1369 12.7286 10.0243C12.7905 9.91079 12.8696 9.80756 12.9631 9.71819C13.1488 9.53541 13.3887 9.41769 13.6469 9.38281Z" fill="#FBF6EC"></path> <path d="M13.7776 9.82812C13.6278 9.9942 13.4878 10.1375 13.3576 10.297C13.2924 10.3752 13.2306 10.4567 13.1654 10.5413L12.9766 10.7986C12.9809 10.6863 13.0063 10.5758 13.0514 10.4729C13.0954 10.3691 13.1547 10.2726 13.2273 10.1864C13.3684 10.0119 13.5611 9.88661 13.7776 9.82812Z" fill="#FBF6EC"></path> <path d="M14.003 10.2422C13.8727 10.4278 13.7326 10.5678 13.5959 10.7436L13.3842 10.9814C13.3125 11.0636 13.2363 11.1418 13.1562 11.2159C13.1793 11.1012 13.2211 10.9912 13.28 10.8902C13.3312 10.7914 13.3946 10.6995 13.4688 10.6167C13.6146 10.4512 13.7977 10.3228 14.003 10.2422Z" fill="#FBF6EC"></path> <path d="M14.3356 10.5938C14.176 10.7827 14.01 10.952 13.8862 11.1409C13.8178 11.232 13.7527 11.3265 13.6876 11.4242L13.4922 11.7238C13.4971 11.5997 13.5236 11.4774 13.5704 11.3623C13.6151 11.2462 13.6754 11.1367 13.7495 11.0367C13.8983 10.8358 14.1018 10.6821 14.3356 10.5938Z" fill="#FBF6EC"></path> <path d="M14.6735 11.1016C14.5172 11.3035 14.3674 11.4826 14.2306 11.678C14.159 11.7724 14.0939 11.8701 14.0254 11.9711C13.9571 12.072 13.8952 12.173 13.8203 12.2772C13.8315 12.1509 13.8611 12.0269 13.9082 11.9092C13.9565 11.7941 14.0177 11.6849 14.0906 11.5835C14.2371 11.3726 14.4388 11.2059 14.6735 11.1016Z" fill="#FBF6EC"></path> <path d="M15.0581 11.5469C14.9116 11.7358 14.778 11.9051 14.6576 12.0907C14.5957 12.1819 14.5436 12.2796 14.485 12.3741L14.3222 12.6769C14.3149 12.557 14.3292 12.4368 14.3645 12.3219C14.3991 12.2064 14.4507 12.0967 14.5175 11.9963C14.6445 11.7921 14.8341 11.6344 15.0581 11.5469Z" fill="#FBF6EC"></path> <path d="M15.391 11.8984C15.2509 12.1362 15.1109 12.3544 14.9839 12.5823C14.9187 12.6963 14.8601 12.8136 14.795 12.9276C14.7299 13.0415 14.6778 13.1653 14.6094 13.2857C14.6117 13.1477 14.6336 13.0106 14.6745 12.8787C14.7126 12.7464 14.7673 12.6195 14.8373 12.5009C14.969 12.2572 15.1592 12.0501 15.391 11.8984Z" fill="#FBF6EC"></path> <path d="M15.7738 12.4062C15.6793 12.6114 15.5719 12.7905 15.4742 12.9761L15.3178 13.2497C15.2625 13.3442 15.2104 13.4386 15.1485 13.533C15.1471 13.4225 15.1636 13.3126 15.1973 13.2073C15.2269 13.0942 15.2695 12.985 15.3243 12.8817C15.4325 12.6885 15.5869 12.5251 15.7738 12.4062Z" fill="#FBF6EC"></path> <path d="M16.2097 12.75C16.1484 12.9182 16.0766 13.0825 15.9948 13.2417C15.9557 13.3199 15.9166 13.398 15.8711 13.4762C15.8292 13.5572 15.7825 13.6354 15.731 13.7107C15.7211 13.6169 15.7277 13.5221 15.7506 13.4306C15.7696 13.3392 15.8003 13.2505 15.8417 13.1668C15.9249 12.9975 16.052 12.8535 16.2097 12.75Z" fill="#FBF6EC"></path> <path d="M16.7034 13.1484C16.5743 13.3595 16.485 13.5924 16.4396 13.8356C16.395 13.7769 16.3662 13.7077 16.3558 13.6348C16.3455 13.5618 16.3539 13.4874 16.3803 13.4186C16.4067 13.3498 16.4503 13.2889 16.5068 13.2416C16.5633 13.1943 16.631 13.1623 16.7034 13.1484Z" fill="#FBF6EC"></path> <path d="M8.21251 7.17413C8.13947 7.24546 8.05985 7.30983 7.97479 7.36628C7.93637 7.39489 7.89611 7.42103 7.85428 7.44438C7.81194 7.46723 7.7696 7.49325 7.71099 7.51932C7.70985 7.45875 7.72808 7.39938 7.76314 7.34995C7.79339 7.30122 7.83327 7.25907 7.88035 7.22622C7.92782 7.19223 7.98257 7.16983 8.04023 7.16078C8.09795 7.15173 8.15694 7.15628 8.21251 7.17413Z" fill="#FBF6EC"></path> <path d="M8.45666 7.83431C8.35356 7.92178 8.24476 8.00228 8.13096 8.07532C8.07887 8.11115 8.02678 8.14697 7.9714 8.1795C7.91343 8.21893 7.85248 8.2538 7.78906 8.28374C7.80324 8.21121 7.83451 8.14311 7.8802 8.08507C7.92318 8.0264 7.97609 7.9757 8.03653 7.93526C8.15837 7.84874 8.30881 7.81254 8.45666 7.83431Z" fill="#FBF6EC"></path> <path d="M8.64936 8.47088C8.51259 8.5686 8.39215 8.64025 8.27164 8.72493L8.08601 8.84544C8.02411 8.88778 7.96227 8.93006 7.89062 8.9724C7.90702 8.88677 7.94385 8.80626 7.99809 8.73797C8.0479 8.67189 8.10841 8.61461 8.17721 8.5686C8.31632 8.47683 8.48531 8.44189 8.64936 8.47088Z" fill="#FBF6EC"></path> <path d="M8.82061 8.96875C8.70339 9.08926 8.5894 9.18046 8.47542 9.27812L8.30282 9.4247C8.24421 9.47356 8.18561 9.52236 8.11719 9.57122C8.12985 9.48881 8.15978 9.41002 8.20516 9.34002C8.24744 9.26862 8.30137 9.20476 8.36472 9.15116C8.48997 9.0378 8.65174 8.97312 8.82061 8.96875Z" fill="#FBF6EC"></path> <path d="M9.20534 9.36719C9.09642 9.51073 8.97781 9.64674 8.8504 9.77421C8.7885 9.83611 8.7299 9.89795 8.66154 9.95662C8.59566 10.0204 8.5261 10.0802 8.45312 10.1357C8.47382 10.0434 8.51015 9.95529 8.56059 9.87516C8.60673 9.79504 8.66369 9.72162 8.7299 9.657C8.85844 9.51814 9.02306 9.41776 9.20534 9.36719Z" fill="#FBF6EC"></path> <path d="M9.44754 9.88281C9.3271 10.0164 9.20982 10.1238 9.09583 10.2378L8.92324 10.4071C8.8614 10.4625 8.80602 10.5244 8.73438 10.583C8.74456 10.4938 8.77222 10.4075 8.81577 10.329C8.85773 10.2506 8.91153 10.1792 8.97539 10.1173C9.10165 9.98788 9.26811 9.90522 9.44754 9.88281Z" fill="#FBF6EC"></path> <path d="M9.62659 10.3923C9.49697 10.4788 9.37298 10.5734 9.25532 10.6756C9.14114 10.7784 9.03247 10.8871 8.92969 11.0013C8.93507 10.9154 8.95741 10.8314 8.99538 10.7542C9.03342 10.677 9.08633 10.6081 9.15114 10.5515C9.21595 10.4948 9.29133 10.4516 9.37292 10.4243C9.45456 10.397 9.54076 10.3861 9.62659 10.3923Z" fill="#FBF6EC"></path> <path d="M10.0492 10.5781C9.94909 10.721 9.83453 10.853 9.70719 10.9722C9.64536 11.0276 9.58346 11.0862 9.51504 11.1383C9.44751 11.1962 9.37441 11.2475 9.29688 11.2913C9.32624 11.2054 9.36795 11.1243 9.42061 11.0503C9.56972 10.8255 9.79169 10.6588 10.0492 10.5781Z" fill="#FBF6EC"></path> <path d="M10.4768 10.7734C10.4109 10.911 10.3166 11.0331 10.2 11.1317C10.1452 11.1823 10.0851 11.227 10.0209 11.2652C9.95636 11.3074 9.88623 11.3403 9.8125 11.3629C9.84522 11.2927 9.88687 11.2271 9.93623 11.1675C9.98212 11.1086 10.0334 11.0541 10.0893 11.0046C10.2016 10.9022 10.3334 10.8236 10.4768 10.7734Z" fill="#FBF6EC"></path> <path d="M10.8519 11.1185C10.7248 11.226 10.6174 11.3106 10.5099 11.4083C10.4578 11.4539 10.409 11.5027 10.3536 11.5549C10.2983 11.607 10.2494 11.6591 10.1875 11.7144C10.1872 11.6316 10.2074 11.5499 10.2462 11.4767C10.2841 11.4023 10.3361 11.336 10.3992 11.2813C10.4594 11.2246 10.5307 11.1808 10.6086 11.1527C10.6864 11.1248 10.7693 11.113 10.8519 11.1185Z" fill="#FBF6EC"></path> <path d="M11.2874 11.3199C11.1799 11.4143 11.0887 11.4794 11.0008 11.5576L10.8607 11.6684C10.8152 11.7074 10.7696 11.7498 10.7109 11.7921C10.7127 11.7214 10.7297 11.6519 10.7607 11.5884C10.7918 11.5248 10.8362 11.4687 10.8909 11.4239C10.9456 11.3791 11.0094 11.3465 11.0778 11.3286C11.1463 11.3106 11.2177 11.3077 11.2874 11.3199Z" fill="#FBF6EC"></path> <path d="M11.8193 11.4453C11.6891 11.5788 11.5686 11.6863 11.4546 11.81C11.396 11.8687 11.3439 11.9338 11.2853 11.9956C11.2267 12.0575 11.1745 12.1292 11.1094 12.1975C11.1114 12.1038 11.1336 12.0116 11.1745 11.9273C11.2135 11.8411 11.2663 11.7619 11.3308 11.6928C11.4579 11.5534 11.6317 11.4653 11.8193 11.4453Z" fill="#FBF6EC"></path> <path d="M12.3461 11.7288C12.2214 11.8195 12.1039 11.9197 11.9944 12.0284C11.887 12.138 11.7878 12.2556 11.6981 12.3801C11.6895 12.2932 11.7009 12.2055 11.7313 12.1236C11.7618 12.0418 11.8106 11.968 11.8739 11.9079C11.934 11.8444 12.0077 11.7953 12.0895 11.7643C12.1713 11.7332 12.259 11.7211 12.3461 11.7288Z" fill="#FBF6EC"></path> <path d="M12.7744 11.9609C12.6669 12.1205 12.5529 12.2475 12.4488 12.3843L12.2794 12.5829C12.2219 12.6542 12.1599 12.7216 12.0938 12.7848C12.1017 12.6909 12.1271 12.5992 12.1687 12.5145C12.2077 12.4289 12.2581 12.349 12.3184 12.2768C12.4358 12.1287 12.5945 12.0187 12.7744 11.9609Z" fill="#FBF6EC"></path> <path d="M13.3037 12.2891C13.1443 12.4005 13.0008 12.5331 12.8771 12.6831C12.7587 12.8361 12.6581 13.0022 12.5775 13.1781C12.563 13.0717 12.5705 12.9634 12.5995 12.8599C12.6285 12.7565 12.6785 12.6601 12.7462 12.5768C12.814 12.4935 12.8982 12.4249 12.9935 12.3755C13.0888 12.326 13.1933 12.2965 13.3005 12.2891H13.3037Z" fill="#FBF6EC"></path> <path d="M13.7009 12.5625C13.5486 12.7013 13.4061 12.8504 13.2742 13.0086C13.2091 13.0868 13.1537 13.1682 13.0951 13.2497C13.0365 13.331 12.9844 13.4222 12.9225 13.5167C12.9181 13.4055 12.9369 13.2945 12.9779 13.191C13.0159 13.0854 13.0721 12.9873 13.144 12.9012C13.2819 12.724 13.48 12.6035 13.7009 12.5625Z" fill="#FBF6EC"></path> <path d="M14.0785 12.8984C13.9454 13.0343 13.8204 13.1779 13.704 13.3283C13.6486 13.4 13.5998 13.4781 13.5477 13.5563C13.4956 13.6345 13.4565 13.7191 13.4011 13.807C13.3847 13.5992 13.4443 13.3925 13.5689 13.2253C13.6935 13.0582 13.8746 12.942 14.0785 12.8984Z" fill="#FBF6EC"></path> <path d="M14.3067 13.3599C14.2155 13.4673 14.1439 13.5455 14.0788 13.6399C14.0136 13.7344 13.9517 13.819 13.8769 13.9395C13.8524 13.8728 13.8455 13.8009 13.8569 13.7307C13.8683 13.6606 13.8976 13.5945 13.942 13.539C13.9827 13.4807 14.0375 13.4337 14.1013 13.4024C14.165 13.3711 14.2357 13.3564 14.3067 13.3599Z" fill="#FBF6EC"></path> <path d="M14.8842 13.5312C14.8822 13.6128 14.8497 13.6907 14.793 13.7494C14.7674 13.7772 14.7364 13.7994 14.7019 13.8145C14.6642 13.8366 14.6217 13.8488 14.5781 13.8504C14.5796 13.8076 14.5896 13.7656 14.6074 13.7266C14.6224 13.6918 14.6433 13.6599 14.6693 13.6322C14.7257 13.5727 14.8024 13.5366 14.8842 13.5312Z" fill="#FBF6EC"></path> <path d="M12.4297 2.40576C12.5789 2.27667 12.762 2.19304 12.9572 2.16478C13.0546 2.15341 13.153 2.15341 13.2503 2.16478C13.3485 2.16818 13.4453 2.188 13.5369 2.22339C13.4449 2.24953 13.3513 2.27019 13.2568 2.28527L12.9865 2.33412C12.8042 2.36017 12.6284 2.39274 12.4297 2.40576Z" fill="#FBF6EC"></path> <path d="M12.6562 2.08469C12.8458 1.93779 13.0702 1.84244 13.3075 1.80788C13.4254 1.79321 13.5446 1.79321 13.6625 1.80788C13.7811 1.81444 13.8978 1.84086 14.0077 1.88604C13.8904 1.90884 13.7765 1.92186 13.6657 1.93814L13.3401 1.98699C13.1089 2.00979 12.8809 2.05538 12.6562 2.08469Z" fill="#FBF6EC"></path> <path d="M13.1875 1.59801C13.3266 1.50828 13.4878 1.4587 13.6532 1.45473C13.7341 1.44976 13.8152 1.45635 13.8942 1.47426C13.9768 1.48823 14.0562 1.51692 14.1286 1.55894C14.051 1.58135 13.9714 1.59661 13.8909 1.60453C13.8128 1.60453 13.7379 1.60453 13.6597 1.62407C13.5019 1.63283 13.3434 1.62409 13.1875 1.59801Z" fill="#FBF6EC"></path> <path d="M13.4141 1.24511C13.5273 1.15747 13.6651 1.10737 13.8081 1.10183C13.8781 1.10011 13.9481 1.10667 14.0165 1.12137C14.0875 1.13833 14.1549 1.16813 14.2152 1.2093C14.1481 1.22899 14.0794 1.24315 14.01 1.25163C13.9465 1.2628 13.8824 1.26934 13.8179 1.27117C13.6827 1.27987 13.547 1.27111 13.4141 1.24511Z" fill="#FBF6EC"></path> <path d="M18.5078 13.1875C18.7456 13.1875 18.9638 13.2298 19.1852 13.2526L19.5109 13.2884C19.5617 13.2997 19.6147 13.2967 19.664 13.2801C19.7133 13.2635 19.7572 13.2337 19.7909 13.194C19.7899 13.2264 19.7807 13.2581 19.7642 13.2859C19.7477 13.3138 19.7244 13.3371 19.6965 13.3536C19.6415 13.3872 19.5808 13.4103 19.5174 13.422C19.4007 13.4383 19.2823 13.4383 19.1657 13.422C19.0543 13.4093 18.945 13.3831 18.84 13.3438C18.7218 13.3094 18.6097 13.2566 18.5078 13.1875Z" fill="#FBF6EC"></path> <path d="M18.7734 12.7598C19.0055 12.7467 19.2382 12.7467 19.4703 12.7598C19.5876 12.7598 19.7015 12.7598 19.8155 12.7858C19.9334 12.7936 20.0508 12.8077 20.1672 12.8282C20.0558 12.8738 19.9385 12.9034 19.8188 12.9162C19.7008 12.9291 19.5818 12.9291 19.4638 12.9162C19.2253 12.9129 18.9901 12.8597 18.7734 12.7598Z" fill="#FBF6EC"></path> <path d="M19.0859 12.2969C19.4699 12.4943 19.9066 12.565 20.3332 12.4988C20.2404 12.573 20.1328 12.6262 20.0176 12.6549C19.9023 12.6835 19.7823 12.6869 19.6656 12.6649C19.5485 12.648 19.4362 12.6065 19.3363 12.543C19.2364 12.4796 19.1511 12.3957 19.0859 12.2969Z" fill="#FBF6EC"></path> <path d="M19.2656 11.9609C19.458 12.0196 19.6537 12.0664 19.8518 12.1009C19.9495 12.1009 20.0472 12.127 20.1449 12.1368H20.4706C20.3792 12.1971 20.2759 12.237 20.1677 12.254C20.0599 12.272 19.9499 12.272 19.842 12.254C19.62 12.2318 19.4144 12.1273 19.2656 11.9609Z" fill="#FBF6EC"></path> <path d="M19.5391 11.5156C19.7312 11.5547 19.894 11.6003 20.0666 11.6328L20.3239 11.685C20.4118 11.685 20.4998 11.7143 20.5974 11.7371C20.5109 11.7803 20.417 11.8068 20.3206 11.8152C20.2247 11.8315 20.1267 11.8315 20.0308 11.8152C19.8371 11.7754 19.6633 11.6695 19.5391 11.5156Z" fill="#FBF6EC"></path> <path d="M19.7812 11.1719C19.9377 11.2328 20.0989 11.2807 20.2632 11.3152C20.4275 11.3469 20.5942 11.3644 20.7615 11.3673C20.6853 11.421 20.599 11.4586 20.5078 11.4778C20.4166 11.4971 20.3225 11.4976 20.2311 11.4793C20.1397 11.4611 20.053 11.4243 19.9762 11.3715C19.8994 11.3186 19.8342 11.2507 19.7845 11.1719H19.7812Z" fill="#FBF6EC"></path> <path d="M19.9531 10.7696C20.0573 10.7696 20.1517 10.8054 20.2462 10.8216L20.523 10.8705C20.6099 10.8884 20.6981 10.8992 20.7868 10.903C20.8048 10.9035 20.8228 10.9003 20.8396 10.8935C20.8564 10.8868 20.8717 10.8768 20.8845 10.864C20.9015 10.8509 20.9146 10.8333 20.9221 10.8131C20.9296 10.7929 20.9312 10.7711 20.9268 10.75C20.9484 10.7705 20.9628 10.7973 20.9681 10.8266C20.9734 10.8559 20.9691 10.8861 20.9561 10.9128C20.9426 10.9416 20.9232 10.9673 20.8991 10.9881C20.8749 11.0089 20.8466 11.0243 20.8161 11.0333C20.709 11.0585 20.5975 11.0585 20.4904 11.0333C20.2889 11.0013 20.1017 10.9094 19.9531 10.7696Z" fill="#FBF6EC"></path> <path d="M20.1406 10.3438C20.4538 10.4627 20.7978 10.473 21.1176 10.3731C21.0613 10.4514 20.9865 10.5147 20.9 10.5575C20.8135 10.6002 20.7178 10.621 20.6213 10.6181C20.5248 10.6153 20.4306 10.5887 20.3468 10.5408C20.2629 10.493 20.1921 10.4253 20.1406 10.3438Z" fill="#FBF6EC"></path> <path d="M20.2266 9.73438C20.5293 9.85475 20.8591 9.89083 21.1807 9.83855C21.1159 9.90431 21.037 9.9545 20.95 9.98545C20.8631 10.0163 20.7702 10.0272 20.6785 10.0172C20.5867 10.0072 20.4983 9.97653 20.4201 9.92754C20.3418 9.87855 20.2757 9.81254 20.2266 9.73438Z" fill="#FBF6EC"></path> <path d="M20.5469 9.1875C20.6935 9.21358 20.8074 9.23636 20.9312 9.24617C21.0549 9.25592 21.1689 9.26244 21.3187 9.26896C21.2674 9.32402 21.2038 9.36611 21.133 9.39155C21.0621 9.41706 20.9862 9.42529 20.9116 9.41548C20.8369 9.40991 20.7647 9.38617 20.7012 9.34649C20.6376 9.3068 20.5847 9.25225 20.5469 9.1875Z" fill="#FBF6EC"></path> <path d="M20.7656 8.70312C20.9056 8.70312 21.0066 8.70312 21.1173 8.70312C21.228 8.70312 21.329 8.70312 21.4658 8.70312C21.4275 8.75971 21.3754 8.80559 21.3144 8.83635C21.2534 8.86711 21.1856 8.8818 21.1173 8.87895C21.0486 8.88173 20.9803 8.86705 20.9189 8.83629C20.8573 8.80559 20.8046 8.75971 20.7656 8.70312Z" fill="#FBF6EC"></path> <path d="M20.9219 8.27395C21.0293 8.25243 21.14 8.25243 21.2475 8.27395C21.295 8.28395 21.3417 8.29705 21.3875 8.31307C21.4402 8.33085 21.4905 8.3549 21.5373 8.38471C21.4892 8.41604 21.4347 8.43604 21.3778 8.44332C21.3249 8.45148 21.2711 8.45148 21.2182 8.44332C21.1011 8.42769 20.9947 8.36693 20.9219 8.27395Z" fill="#FBF6EC"></path> <path d="M20.9766 7.91868C21.0646 7.88533 21.1566 7.86349 21.2502 7.85356H21.3771C21.4281 7.8509 21.4792 7.8509 21.5302 7.85356C21.5024 7.90052 21.4631 7.9397 21.4162 7.96754C21.3705 7.99489 21.3194 8.01153 21.2664 8.0164C21.2138 8.02508 21.1599 8.02071 21.1093 8.00368C21.0588 7.98666 21.0132 7.95748 20.9766 7.91868Z" fill="#FBF6EC"></path> <path d="M20.9219 7.47287C20.9815 7.41464 21.0602 7.37996 21.1433 7.37521C21.182 7.37382 21.2206 7.37932 21.2573 7.39148C21.3004 7.4016 21.3406 7.42167 21.3745 7.45008C21.3439 7.48243 21.3059 7.50698 21.2638 7.52173C21.2285 7.53572 21.1911 7.54344 21.1531 7.54452C21.0697 7.55122 20.9869 7.52559 20.9219 7.47287Z" fill="#FBF6EC"></path> <path d="M20.9688 7.0823C21.0708 7.03578 21.1825 7.01458 21.2944 7.02047C21.3452 7.01401 21.3967 7.01401 21.4475 7.02047C21.5031 7.02933 21.5569 7.04692 21.607 7.07255C21.5631 7.10863 21.512 7.13528 21.4572 7.15072C21.4045 7.1673 21.3497 7.1761 21.2944 7.1768C21.178 7.18578 21.0623 7.15224 20.9688 7.0823Z" fill="#FBF6EC"></path> <path d="M21.5781 11.8275C21.7279 11.8079 21.8517 11.8275 21.9787 11.8047H22.1708C22.236 11.8047 22.3043 11.8047 22.3793 11.8047C22.33 11.8601 22.2687 11.9035 22.2002 11.9317C22.1314 11.958 22.0588 11.9734 21.9852 11.9773C21.9108 11.9803 21.8366 11.9685 21.7668 11.9429C21.6969 11.9172 21.6328 11.878 21.5781 11.8275Z" fill="#FBF6EC"></path> <path d="M21.944 11.4258C22.0525 11.4195 22.1612 11.4195 22.2697 11.4258H22.426C22.4814 11.4258 22.5367 11.4258 22.6018 11.4258C22.5651 11.4786 22.5127 11.5185 22.4521 11.5398C22.3637 11.5785 22.265 11.5863 22.1717 11.5621C22.0783 11.5378 21.9959 11.483 21.9375 11.4062L21.944 11.4258Z" fill="#FBF6EC"></path> <path d="M22.2734 11.0284C22.3656 11.0097 22.4595 11.0009 22.5535 11.0024C22.5969 10.9992 22.6404 10.9992 22.6838 11.0024C22.7293 11.0024 22.775 11.0024 22.8336 11.0252C22.8012 11.0714 22.7575 11.1084 22.7065 11.1326C22.6581 11.1531 22.6061 11.1641 22.5535 11.1652C22.4991 11.1676 22.445 11.1564 22.396 11.1325C22.3471 11.1086 22.305 11.0728 22.2734 11.0284Z" fill="#FBF6EC"></path> <path d="M22.4609 10.6406H22.7573C22.8485 10.6406 22.9332 10.6406 23.0537 10.6406C23.0235 10.6914 22.9811 10.7339 22.9302 10.764C22.8794 10.7941 22.8217 10.8109 22.7626 10.8128C22.7036 10.8148 22.645 10.8018 22.5923 10.7752C22.5395 10.7485 22.4944 10.7089 22.4609 10.6602V10.6406Z" fill="#FBF6EC"></path> <path d="M22.6484 10.2715L22.9089 10.2291L23.1695 10.2031C23.1519 10.2548 23.1201 10.3006 23.0778 10.3353C23.0355 10.3699 22.9844 10.392 22.9302 10.3991C22.876 10.4063 22.8209 10.3981 22.7711 10.3755C22.7213 10.3529 22.6788 10.3169 22.6484 10.2715Z" fill="#FBF6EC"></path> <path d="M21.1406 2.20585C21.4055 2.13152 21.674 2.07065 21.945 2.02348L22.3456 1.95836C22.4823 1.93556 22.6158 1.91602 22.7591 1.90625C22.6387 1.97897 22.5109 2.03899 22.3781 2.08536C22.2468 2.13258 22.1117 2.16853 21.9743 2.19283C21.6995 2.24766 21.417 2.25207 21.1406 2.20585Z" fill="#FBF6EC"></path> <path d="M21.6797 2.46622C21.8546 2.42176 22.0318 2.38697 22.2105 2.36201L22.4743 2.32293C22.5622 2.32293 22.6501 2.30013 22.7479 2.29688C22.6776 2.36232 22.5959 2.41421 22.5068 2.44993C22.4211 2.48915 22.33 2.5155 22.2365 2.52809C22.0489 2.56228 21.8553 2.54077 21.6797 2.46622Z" fill="#FBF6EC"></path> <path d="M21.8281 2.85638C21.9655 2.80473 22.1088 2.77081 22.2548 2.75543C22.3231 2.75543 22.3948 2.73915 22.4664 2.73915C22.5412 2.73278 22.6164 2.73278 22.6911 2.73915C22.6337 2.79151 22.566 2.83142 22.4925 2.85638C22.4227 2.88577 22.3493 2.90549 22.2743 2.915C22.1231 2.94082 21.9676 2.92039 21.8281 2.85638Z" fill="#FBF6EC"></path> <path d="M21.7422 3.25914C21.8829 3.2171 22.0285 3.19302 22.1753 3.1875H22.3869C22.4625 3.19127 22.5376 3.20106 22.6117 3.2168C22.5488 3.26264 22.4782 3.29683 22.4033 3.31776C22.3319 3.34205 22.2572 3.35523 22.1818 3.35684C22.0288 3.36831 21.8759 3.33432 21.7422 3.25914Z" fill="#FBF6EC"></path> <path d="M21.8047 3.6667C21.9401 3.62675 22.0803 3.60485 22.2215 3.60156C22.2867 3.60156 22.355 3.60156 22.4234 3.60156C22.4958 3.60627 22.5678 3.61717 22.6384 3.63413C22.5792 3.67944 22.5117 3.71264 22.4397 3.73183C22.3704 3.75529 22.2979 3.76739 22.2248 3.76765C22.0777 3.77761 21.9311 3.74238 21.8047 3.6667Z" fill="#FBF6EC"></path> <path d="M21.9219 3.99937L22.2475 3.97007L22.5731 3.9375C22.5408 3.99253 22.4958 4.0391 22.4419 4.07339C22.3881 4.10768 22.3269 4.1287 22.2633 4.13474C22.1997 4.14078 22.1357 4.13166 22.0763 4.10813C22.0169 4.0846 21.964 4.04733 21.9219 3.99937Z" fill="#FBF6EC"></path> <path d="M21.5234 1.67497C21.6436 1.64647 21.7654 1.6258 21.8882 1.6131H22.0608C22.1258 1.60813 22.1912 1.60813 22.2562 1.6131C22.2145 1.66766 22.161 1.71218 22.0998 1.74336C22.0396 1.77363 21.9746 1.79346 21.9077 1.80198C21.8384 1.80867 21.7684 1.80083 21.7022 1.77896C21.636 1.7571 21.5751 1.72168 21.5234 1.67497Z" fill="#FBF6EC"></path> <path d="M21.5469 1.17298C21.6021 1.12282 21.6715 1.09096 21.7455 1.0818C21.779 1.0769 21.813 1.0769 21.8465 1.0818C21.8864 1.08841 21.9249 1.10162 21.9605 1.12088C21.94 1.15867 21.9096 1.19018 21.8726 1.21206C21.8409 1.23168 21.8054 1.24393 21.7683 1.24788C21.7281 1.25351 21.6872 1.24967 21.6488 1.23667C21.6103 1.22366 21.5754 1.20185 21.5469 1.17298Z" fill="#FBF6EC"></path> <path d="M12.8438 8.07812C13.1742 8.77047 13.5875 9.42003 14.0748 10.0126C14.3175 10.3086 14.5798 10.5882 14.8596 10.8495C15.1404 11.1114 15.435 11.3581 15.7421 11.5887C15.3939 11.4074 15.0663 11.1891 14.7651 10.9374C14.464 10.6884 14.187 10.4114 13.938 10.1102C13.4399 9.51363 13.0677 8.82237 12.8438 8.07812Z" fill="#FBF6EC"></path> <path d="M21.4062 2.69531C21.5531 3.07664 21.6377 3.47905 21.657 3.88721C21.6717 4.09102 21.6717 4.29563 21.657 4.49944C21.6408 4.7022 21.6048 4.90288 21.5495 5.09865C21.5495 4.89674 21.5495 4.69483 21.5268 4.49618L21.4877 3.91326C21.4681 3.49968 21.429 3.10238 21.4062 2.69531Z" fill="#FBF6EC"></path> <path d="M8.60156 7.82031C8.72428 8.23177 8.89251 8.62823 9.10302 9.00247C9.20726 9.18481 9.32777 9.3607 9.4515 9.53652C9.57524 9.7124 9.71853 9.86215 9.86511 10.0348C9.67403 9.9219 9.50062 9.78146 9.35055 9.61791C9.19821 9.45645 9.06587 9.27709 8.9565 9.08386C8.73137 8.70031 8.60909 8.26506 8.60156 7.82031Z" fill="#FBF6EC"></path> <line x1="0.154678" y1="7.46696" x2="31.8003" y2="46.0746" stroke="white" stroke-width="0.4"></line> </svg>
+                    </div>
+
+                    <div class="wishes-icon bottle">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 50" fill="none"> <path d="M12.0859 4.65254C12.25 6.52242 12.3821 8.3963 12.6424 10.2582C12.7546 11.1871 12.9067 12.108 13.0909 13.0209C13.2686 13.9335 13.4959 14.8357 13.7715 15.7237C14.0454 16.6077 14.373 17.4742 14.7525 18.3182C15.1249 19.1671 15.5813 19.9719 16.0218 20.8087C16.4872 21.6433 16.8888 22.512 17.223 23.4073C17.5322 24.3208 17.7652 25.2582 17.9197 26.2101C18.0758 27.1551 18.208 28.064 18.3201 29.0129C18.4322 29.9619 18.5283 30.8868 18.6044 31.8157C18.7325 33.6843 18.7818 35.5675 18.7525 37.4654C18.7365 38.4077 18.7018 39.3419 18.6484 40.2682C18.5923 41.2051 18.5123 42.1421 18.4322 43.071C18.3521 43.9999 18.244 44.9449 18.1199 45.8738L17.9197 47.2712L17.6914 48.6966V48.7687L17.6234 48.7887C16.9845 49.0036 16.3333 49.1801 15.6734 49.3172C15.0168 49.4574 14.3561 49.5775 13.6714 49.6576C13.3391 49.7056 13.0068 49.7457 12.6704 49.7737C12.3341 49.8017 12.0018 49.8418 11.6694 49.8578C11.3371 49.8738 10.9968 49.9058 10.6605 49.9139L9.65547 49.9338C9.31913 49.9338 8.98279 49.9338 8.64645 49.9338C8.31011 49.9338 7.97377 49.9339 7.64144 49.8898L6.63243 49.8178L5.63143 49.7056C5.29509 49.6696 4.96276 49.6296 4.63043 49.5695L3.63345 49.4053C3.30112 49.3573 2.97681 49.2692 2.64448 49.2012L1.65952 48.9849L1.46732 48.9449L1.43926 48.6966L1.20703 47.3112L1.00281 45.9138C0.872077 44.9769 0.762636 44.036 0.674493 43.091C0.506356 41.2251 0.40625 39.3353 0.40625 37.4494C0.40625 36.5084 0.406251 35.5635 0.45029 34.6186C0.494329 33.6736 0.534356 32.7327 0.61849 31.7917C0.702559 30.8507 0.798657 29.9138 0.922754 28.9889C1.04692 28.064 1.18304 27.123 1.32318 26.1861C1.47955 25.235 1.71118 24.2978 2.01584 23.3833C2.3458 22.4824 2.74747 21.6094 3.21705 20.7727C3.66151 19.9398 4.12195 19.127 4.49431 18.2942C4.69452 17.8658 4.86266 17.4414 5.02685 17.0169C5.19098 16.5925 5.34314 16.1481 5.47131 15.7036C5.74258 14.8167 5.9658 13.9158 6.13998 13.0049C6.31614 12.092 6.47231 11.1751 6.58438 10.2461C6.82863 8.3963 6.95273 6.52642 7.09688 4.64054V4.48438H7.24503L12.0498 4.6045L12.0859 4.65254ZM12.0058 4.69659L7.26107 4.81671L7.42125 4.66456C7.36919 6.53843 7.28907 8.42029 7.11692 10.2982C6.96081 12.1935 6.62842 14.0702 6.12394 15.9038C5.99985 16.3643 5.84768 16.8167 5.69552 17.2692C5.54335 17.7216 5.35918 18.1741 5.171 18.5985C4.8106 19.4674 4.34615 20.3042 3.92575 21.137C3.4937 21.946 3.12036 22.7851 2.80867 23.6476C2.5234 24.5193 2.30781 25.4123 2.16399 26.3182C2.01183 27.2352 1.87169 28.1601 1.76357 29.085C1.65551 30.0099 1.53936 30.9349 1.46331 31.8798C1.29781 33.7483 1.20835 35.6169 1.19501 37.4854C1.18166 39.3539 1.24844 41.2225 1.39522 43.091C1.46193 44.02 1.55008 44.9542 1.65952 45.8938L1.83166 47.2832L2.0399 48.6686L1.81563 48.4244L2.7806 48.6646C3.1009 48.7366 3.42127 48.8368 3.74558 48.8928L4.72252 49.085C5.0469 49.1571 5.37121 49.2012 5.69953 49.2492L6.68449 49.3934L7.67345 49.4895C8.00578 49.5255 8.33811 49.5455 8.66643 49.5615C8.99482 49.5775 9.33116 49.6015 9.66349 49.6055H10.6565C10.9888 49.6055 11.3211 49.5855 11.6535 49.5775C11.9858 49.5695 12.3181 49.5455 12.6504 49.5175C12.9828 49.4895 13.3111 49.4574 13.6394 49.4133C14.3001 49.3413 14.9567 49.2252 15.6054 49.097C16.2551 48.9689 16.8968 48.8031 17.5273 48.6005L17.4472 48.6926C17.6114 47.7717 17.7315 46.8428 17.8476 45.9138C17.9637 44.9849 18.0478 44.052 18.1199 43.111C18.264 41.2452 18.296 39.3713 18.268 37.5054C18.24 35.6396 18.1279 33.7697 17.9397 31.8998C17.8556 30.9709 17.7555 30.0419 17.6274 29.1211C17.4993 28.2001 17.3631 27.2591 17.2029 26.3542C17.059 25.4452 16.8462 24.5484 16.5664 23.6716C16.2545 22.8039 15.8785 21.9607 15.4412 21.149C15.0408 20.3203 14.5603 19.4834 14.188 18.6105C13.802 17.7205 13.4847 16.8022 13.239 15.8638C12.9849 14.9522 12.7818 14.0272 12.6304 13.093C12.4743 12.1601 12.3501 11.2231 12.2661 10.2902C12.1059 8.43232 12.0378 6.57046 12.0178 4.7046L12.0058 4.69659Z" fill="#FBF6EC"></path> <path d="M7.02083 4.6053C6.85427 4.51751 6.72182 4.37658 6.64446 4.2049C6.55263 4.01328 6.48796 3.80978 6.45226 3.6003C6.40106 3.33602 6.36892 3.06839 6.35617 2.79949C6.33125 2.45666 6.40783 2.11408 6.57643 1.81451C6.7909 1.48678 7.10759 1.23905 7.47732 1.1098C7.84311 0.97721 8.22144 0.881964 8.60642 0.825519C8.99528 0.744167 9.38821 0.684019 9.78358 0.645339C10.1851 0.61629 10.5886 0.637813 10.9848 0.709403C11.3793 0.788788 11.7538 0.946745 12.0859 1.17387C12.4061 1.38452 12.6635 1.67781 12.8306 2.02272C12.993 2.33835 13.0571 2.69534 13.0148 3.04774C12.9882 3.33234 12.8949 3.60667 12.7425 3.84855C12.6367 4.02983 12.5014 4.19221 12.3422 4.32902C12.238 4.41573 12.122 4.48718 11.9978 4.54124L11.8696 4.59729L11.9898 4.52522C12.093 4.44224 12.1882 4.34974 12.2741 4.24894C12.5898 3.91556 12.7735 3.47861 12.7906 3.01971C12.7985 2.87725 12.7864 2.73437 12.7546 2.59529C12.7369 2.52173 12.7141 2.44948 12.6865 2.37907C12.6594 2.31009 12.6272 2.24318 12.5904 2.17887C12.4214 1.89746 12.1881 1.66008 11.9097 1.48618C11.277 1.11472 10.5403 0.960062 9.81164 1.04574C9.42897 1.0754 9.04806 1.12485 8.67051 1.19389C8.31025 1.24743 7.95524 1.33182 7.60943 1.44614C7.29479 1.53634 7.0153 1.7208 6.80865 1.97467C6.64958 2.22168 6.56611 2.50973 6.56841 2.8035C6.56841 3.08378 6.56841 3.36006 6.58839 3.6043C6.59792 3.80645 6.6371 4.0061 6.70454 4.19689C6.7466 4.31958 6.81496 4.43162 6.90475 4.52522C6.9808 4.57728 7.02484 4.6013 7.02083 4.6053Z" fill="#FBF6EC"></path> <path d="M7.27344 6.5C7.27344 6.5 7.58171 6.5 8.03018 6.56006C8.47859 6.62012 9.07121 6.63213 9.66376 6.64415C10.2564 6.65615 10.845 6.64415 11.2974 6.62012L12.0542 6.59209C11.8215 6.70096 11.5788 6.78678 11.3295 6.84835C11.0756 6.91562 10.8174 6.96512 10.5567 6.9965C10.2578 7.03246 9.95685 7.04984 9.65581 7.04855C9.35405 7.03952 9.05314 7.01144 8.75492 6.96447C8.49509 6.92233 8.23835 6.86348 7.98615 6.78829C7.74005 6.71477 7.50139 6.61825 7.27344 6.5Z" fill="#FBF6EC"></path> <path d="M6.57812 14.4046L7.60318 14.4606C8.21177 14.4967 9.02057 14.5207 9.82938 14.5086C10.6382 14.4967 11.4309 14.4486 12.0516 14.3966L13.0726 14.3125L12.8163 14.4126C12.6442 14.4646 12.4159 14.5527 12.0956 14.6248C11.7525 14.7094 11.405 14.775 11.0546 14.821C10.6559 14.8709 10.255 14.9003 9.85337 14.9091C9.45229 14.9124 9.05127 14.8937 8.65223 14.853C8.30064 14.8193 7.95155 14.7631 7.60712 14.6849C7.36235 14.6337 7.12046 14.5695 6.88245 14.4927C6.67422 14.4406 6.57812 14.4046 6.57812 14.4046Z" fill="#FBF6EC"></path> <path d="M1.24219 31.4851C2.11107 31.3289 2.98389 31.1968 3.85277 31.0566L3.78067 31.0967L4.04497 30.7363L4.33326 30.388L4.64153 30.0596L4.96985 29.7513L5.31822 29.463L5.68262 29.1987L6.08298 28.9545L6.48341 28.7383L6.88377 28.5461L7.30417 28.378L7.73661 28.2378L8.17305 28.1217L8.61752 28.0296L9.06994 27.9695L9.52242 27.9375H9.98286L10.4233 27.9655L10.8797 28.0296L11.3242 28.1177L11.7647 28.2378L12.1931 28.3819L12.6135 28.5501L13.0139 28.7423L13.4143 28.9625C13.6739 29.1153 13.9239 29.2838 14.163 29.467L14.5114 29.7553L14.8397 30.0676L15.148 30.3959L15.4363 30.7403L15.7005 31.1047L15.9408 31.505L15.8527 31.453C16.2996 31.4633 16.744 31.5224 17.178 31.6292C17.6086 31.7241 18.0265 31.8693 18.4233 32.0616C18.014 31.9042 17.5902 31.7875 17.158 31.7133C16.728 31.6427 16.292 31.6159 15.8567 31.6332H15.8047L15.7686 31.5812L15.5204 31.2248L15.2201 30.8884L14.9278 30.5681L14.6275 30.2839L14.2992 30.0036L13.9548 29.7433L13.6185 29.483L13.2181 29.2548L12.8177 29.0506L12.4173 28.8744L12.0169 28.7182L11.6165 28.5861L11.2161 28.482L10.8157 28.406L10.4153 28.3539L9.97483 28.3259H9.51841L9.08998 28.3499L8.66156 28.4019L8.24115 28.482L7.82074 28.5861L7.42032 28.7143L7.01989 28.8704L6.61953 29.0466L6.21911 29.2468L5.84675 29.467L5.48642 29.7073L5.14206 29.9675L4.81374 30.2478L4.50139 30.5521L4.20909 30.8724L3.93684 31.2127L3.90483 31.2528H3.8648C2.99993 31.3329 2.12303 31.421 1.24219 31.4851Z" fill="#FBF6EC"></path> <path d="M1.125 40.0919C1.92519 40.2524 2.74642 40.2794 3.55542 40.172H3.58743L3.62351 40.2C3.89978 40.3842 4.17604 40.5604 4.46433 40.7205C4.75262 40.8807 5.04893 41.0248 5.34918 41.153C5.95212 41.4043 6.57491 41.6052 7.21104 41.7536C7.52891 41.8306 7.85112 41.8881 8.17602 41.9257C8.50033 41.9698 8.82865 41.9938 9.15296 42.0058C9.47734 42.0179 9.80967 42.0058 10.134 42.0058C10.46 41.9892 10.7848 41.9544 11.1069 41.9017C11.7532 41.8084 12.3854 41.6349 12.9888 41.3852C13.5878 41.1391 14.1403 40.7925 14.6225 40.3602C14.8627 40.148 15.0509 39.8677 15.3471 39.6474C15.6556 39.4647 16.0176 39.3941 16.3722 39.4472C17.033 39.4555 17.6877 39.3188 18.2901 39.0469C17.7071 39.3904 17.0514 39.592 16.3762 39.6354C16.0631 39.61 15.7501 39.6858 15.4833 39.8517C15.2499 40.0696 15.0281 40.2994 14.8186 40.5403C14.334 41.0296 13.7587 41.4199 13.1249 41.6895C12.5 41.9611 11.8437 42.1535 11.171 42.262C10.8347 42.3181 10.4983 42.3621 10.158 42.3862C9.81933 42.4082 9.47964 42.4082 9.141 42.3862C8.80302 42.3742 8.46608 42.3422 8.13198 42.2901C7.11843 42.1517 6.13248 41.8573 5.20905 41.4172C4.90478 41.2691 4.60848 41.1049 4.32019 40.9287C4.03189 40.7526 3.75563 40.5564 3.48732 40.3561H3.55943C2.7386 40.4179 1.91343 40.3283 1.125 40.0919Z" fill="#FBF6EC"></path> <path d="M4.84375 31.1952C5.6471 30.5727 6.54273 30.0796 7.49837 29.7338C7.73862 29.6457 7.98287 29.5696 8.22712 29.5056C8.47505 29.441 8.72634 29.3902 8.97986 29.3534C9.49025 29.28 10.0071 29.2625 10.5214 29.3013L10.9018 29.3454L11.3022 29.4175C11.5457 29.473 11.7852 29.5453 12.0189 29.6337C12.26 29.7278 12.4953 29.8361 12.7236 29.958C12.9492 30.0778 13.1672 30.2116 13.3763 30.3584C13.8034 30.6702 14.1791 31.0472 14.4893 31.4755L14.7016 31.7998L14.8817 32.1441L15.0339 32.5005L15.15 32.8689L15.0579 32.8049C15.9452 32.7753 16.8239 32.9871 17.6004 33.4175C17.2014 33.2458 16.7834 33.1221 16.3552 33.0491C15.9292 32.9792 15.4966 32.9591 15.0659 32.989H14.9979L14.9738 32.9169L14.8457 32.5726L14.6895 32.2363L14.5013 31.9199L14.2891 31.6236C14.1367 31.4306 13.9723 31.2473 13.7967 31.0751C13.6152 30.9013 13.4226 30.7394 13.2201 30.5906C12.8173 30.3099 12.3799 30.0824 11.9188 29.9139C11.6865 29.8339 11.4503 29.7578 11.2141 29.7018L10.8577 29.6296L10.4853 29.5816C10.2405 29.5583 9.99453 29.5489 9.74863 29.5536C9.50037 29.5536 9.25211 29.5776 9.00786 29.6096C8.76361 29.6417 8.51942 29.6817 8.27517 29.7338C8.03092 29.7858 7.79067 29.8498 7.55444 29.9219C7.31821 29.994 7.08198 30.0821 6.84575 30.1702C6.60951 30.2583 6.38524 30.3664 6.15703 30.4705C5.70593 30.687 5.26744 30.9291 4.84375 31.1952Z" fill="#FBF6EC"></path> <path d="M1.11719 39.0439C1.37176 39.0863 1.62837 39.1157 1.88596 39.132L2.77482 39.2C3.16316 39.2223 3.54892 39.2772 3.92798 39.3642C4.14877 39.4155 4.36456 39.4866 4.57266 39.5764C4.78885 39.6725 4.97302 39.7846 5.20926 39.8967C5.64169 40.117 6.09417 40.3452 6.57459 40.5454C7.06901 40.7499 7.58676 40.8924 8.11615 40.9698C8.66164 41.0547 9.21423 41.0856 9.76577 41.0619C11.3651 41.0269 12.9178 40.5167 14.2263 39.5965C14.5891 39.3123 14.9779 39.063 15.3874 38.8517C15.7438 38.6866 16.1209 38.5708 16.5085 38.5073C16.8027 38.4562 17.0994 38.4214 17.3974 38.4033C17.8939 38.3712 18.1742 38.3672 18.1742 38.3672L17.4054 38.4593C16.7325 38.5303 16.0763 38.7131 15.4635 38.9998C15.0721 39.2244 14.7022 39.4844 14.3584 39.7766C13.9457 40.089 13.5015 40.3574 13.0331 40.5774C12.0122 41.0588 10.9055 41.3311 9.77779 41.3782C9.20549 41.394 8.63305 41.3551 8.0681 41.2621C7.51735 41.1751 6.97942 41.0204 6.46653 40.8016C5.99735 40.5953 5.54014 40.3627 5.09712 40.105C4.88494 39.9888 4.69676 39.8607 4.48452 39.7686C4.29035 39.6753 4.08797 39.6003 3.87994 39.5444C3.50981 39.4477 3.13404 39.3742 2.75484 39.3241L1.86992 39.2081C1.61614 39.1675 1.36486 39.1127 1.11719 39.0439Z" fill="#FBF6EC"></path> <path d="M15.0841 24.8909C15.2845 24.832 15.4557 24.7007 15.5646 24.5225C15.8298 24.045 15.9245 23.4914 15.8329 22.953C15.721 22.1918 15.3623 21.4884 14.8119 20.9509C14.5064 20.6463 14.1617 20.3837 13.7868 20.1702C13.4092 19.9482 13.0058 19.7734 12.5856 19.6497C12.4876 19.615 12.3822 19.6072 12.2801 19.6269C12.1781 19.6466 12.0831 19.6931 12.005 19.7617C11.9402 19.8435 11.8968 19.9401 11.8786 20.0429C11.8604 20.1457 11.8681 20.2513 11.901 20.3503C12.0371 20.7508 12.4175 21.0351 12.6617 21.3794C13.1379 21.9878 13.4952 22.6806 13.7148 23.4214C13.7858 23.7131 13.8878 23.9963 14.019 24.2663C14.128 24.4754 14.2929 24.6501 14.4955 24.7708C14.6262 24.8495 14.7754 24.8924 14.928 24.8949C14.98 24.8994 15.0324 24.8981 15.0841 24.8909ZM15.0841 24.8909C15.0309 24.8971 14.9772 24.8971 14.9239 24.8909C14.7703 24.8948 14.6188 24.8545 14.4875 24.7748C14.2895 24.6597 14.1274 24.492 14.019 24.2903C13.879 24.016 13.7689 23.7273 13.6907 23.4295C13.4581 22.7014 13.093 22.0227 12.6137 21.4274C12.4855 21.2673 12.3414 21.1111 12.1933 20.9509C12.0318 20.7918 11.9075 20.599 11.8289 20.3864C11.7895 20.2739 11.7791 20.1532 11.7987 20.0357C11.8183 19.9181 11.8673 19.8074 11.941 19.7137C12.0293 19.6307 12.1385 19.5731 12.2569 19.547C12.3753 19.5209 12.4986 19.5273 12.6137 19.5655C13.0466 19.6947 13.4611 19.8791 13.8469 20.1141C14.2249 20.3327 14.5712 20.6021 14.8759 20.9149C15.4259 21.4674 15.7801 22.1845 15.8849 22.957C15.97 23.5012 15.8653 24.0582 15.5886 24.5346C15.4723 24.7136 15.2918 24.8412 15.0841 24.8909Z" fill="#FBF6EC"></path> <path d="M3.00781 47.4933L3.23202 47.5414L3.49631 47.5974L3.86466 47.6334C4.19752 47.6501 4.53123 47.6368 4.86165 47.5934C5.28738 47.5294 5.70865 47.4385 6.12294 47.3212C6.58338 47.201 7.07188 47.0409 7.5964 46.8847C8.1413 46.7115 8.6979 46.5777 9.26206 46.4843C9.87025 46.3802 10.4917 46.3802 11.0999 46.4843C11.7132 46.6407 12.3152 46.8387 12.9016 47.0769C13.4797 47.3196 14.0969 47.4553 14.7235 47.4773C15.0357 47.4322 15.354 47.4554 15.6564 47.5454C15.8042 47.6144 15.9242 47.7316 15.9967 47.8777C16.0333 47.9508 16.0485 48.0328 16.0408 48.1143C16.0329 48.1957 16.0024 48.2732 15.9527 48.3382C15.7329 48.5427 15.451 48.6682 15.1519 48.6945C14.8716 48.7546 14.5954 48.8066 14.3271 48.8547C13.7906 48.9468 13.278 49.0109 12.8055 49.0589C12.0417 49.1304 11.2742 49.1559 10.5072 49.135C9.95471 49.135 9.63843 49.0949 9.63843 49.0949C9.63843 49.0949 9.95471 49.0949 10.5072 49.1149C11.2722 49.1208 12.0368 49.0833 12.7975 49.0028C13.27 48.9548 13.7825 48.8867 14.315 48.7906C14.5833 48.7426 14.8596 48.6905 15.1359 48.6265C15.4204 48.6029 15.6892 48.486 15.9006 48.2942C16.0848 48.0619 15.9006 47.7295 15.6324 47.6215C15.3396 47.5385 15.0327 47.518 14.7315 47.5614C14.0927 47.5446 13.4626 47.4088 12.8736 47.161C12.294 46.9215 11.6987 46.7222 11.0918 46.5644C10.4946 46.4508 9.88208 46.4426 9.28204 46.5404C8.71946 46.6347 8.16417 46.7684 7.62039 46.9408C7.09988 47.0889 6.60737 47.245 6.14693 47.3652C5.72935 47.4817 5.30382 47.5674 4.87368 47.6215C4.54135 47.6593 4.20626 47.666 3.87268 47.6415L3.50433 47.6014L3.23602 47.5373L3.00781 47.4933Z" fill="#FBF6EC"></path> <path d="M3.63281 22.2709C3.71465 22.2524 3.79753 22.239 3.88101 22.2309C4.06623 22.2147 4.25245 22.2147 4.43761 22.2309C4.62316 22.2472 4.80681 22.2806 4.98612 22.331C5.06789 22.3523 5.14814 22.3791 5.22636 22.411L4.9781 22.387C4.826 22.387 4.6298 22.343 4.42959 22.331C4.22937 22.319 4.03317 22.2709 3.88502 22.2709H3.63281Z" fill="#FBF6EC"></path> <path d="M3.10156 23.2312L3.38584 23.2031C3.55805 23.2031 3.78627 23.2031 4.01047 23.2031C4.23468 23.2031 4.4669 23.2031 4.63911 23.2031L4.92339 23.2312C4.92339 23.2312 4.80725 23.2312 4.63911 23.2592C4.47091 23.2873 4.23869 23.2792 4.01047 23.2833C3.78226 23.2873 3.55805 23.2832 3.38584 23.2592C3.2137 23.2352 3.10156 23.2312 3.10156 23.2312Z" fill="#FBF6EC"></path> <path d="M2.71875 24.0722C2.80006 24.025 2.88597 23.9861 2.97503 23.9561C3.17689 23.884 3.38932 23.8461 3.60367 23.844C3.81256 23.841 4.02059 23.8707 4.22028 23.932C4.31072 23.9621 4.399 23.9982 4.48451 24.0402C4.19603 23.9716 3.90011 23.9393 3.60367 23.9441C3.30447 23.9489 3.00711 23.992 2.71875 24.0722Z" fill="#FBF6EC"></path> <path d="M2.35156 24.9371C2.44056 24.9014 2.53146 24.8707 2.62388 24.845C2.82764 24.7862 3.03693 24.7486 3.24845 24.7329C3.45891 24.714 3.67063 24.714 3.88109 24.7329C4.0533 24.7569 4.16537 24.785 4.16537 24.785C4.16537 24.785 3.70494 24.785 3.25646 24.817C2.80806 24.849 2.35156 24.9371 2.35156 24.9371Z" fill="#FBF6EC"></path> <path d="M1.88281 25.7822L2.25918 25.7182C2.48746 25.6821 2.78771 25.6501 3.09204 25.6221C3.39637 25.5941 3.70063 25.5741 3.92885 25.5661C4.15713 25.558 4.32927 25.5661 4.32927 25.5661L3.95291 25.6261C3.72469 25.6622 3.42036 25.6942 3.11603 25.7222C2.81177 25.7502 2.51145 25.7703 2.27923 25.7782L1.88281 25.7822Z" fill="#FBF6EC"></path> <path d="M1.88281 26.7879C1.99626 26.7336 2.11254 26.6855 2.23118 26.6437C2.49147 26.5564 2.75965 26.4947 3.03197 26.4595C3.30744 26.4302 3.58528 26.4302 3.86075 26.4595C4.08502 26.4836 4.23318 26.5156 4.23318 26.5156C3.8319 26.5057 3.43049 26.5244 3.03197 26.5717C2.64442 26.6174 2.2605 26.6897 1.88281 26.7879Z" fill="#FBF6EC"></path> <path d="M1.57812 27.569C1.57812 27.569 1.72227 27.5169 1.94648 27.4568C2.22017 27.3885 2.49854 27.3403 2.77934 27.3127C3.06053 27.2916 3.34297 27.2916 3.62416 27.3127C3.85638 27.3127 4.00454 27.3528 4.00454 27.3528C4.00454 27.3528 3.39194 27.3528 2.80333 27.4329C2.21478 27.5129 1.57812 27.569 1.57812 27.569Z" fill="#FBF6EC"></path> <path d="M1.8125 28.4644C1.8125 28.4644 1.94863 28.3883 2.16488 28.2962C2.43391 28.1926 2.71306 28.1175 2.99767 28.072C3.28261 28.0297 3.57149 28.0203 3.85853 28.044C4.09076 28.068 4.25896 28.1 4.25896 28.1C3.84657 28.089 3.43399 28.1131 3.02574 28.1721C2.61342 28.2331 2.2074 28.3309 1.8125 28.4644Z" fill="#FBF6EC"></path> <path d="M1.88281 29.3774C1.99212 29.3255 2.10445 29.28 2.21915 29.2413C2.47162 29.1588 2.73191 29.1025 2.99588 29.0731C3.26136 29.0381 3.5296 29.0301 3.79666 29.0491C3.91754 29.057 4.03783 29.0716 4.15706 29.0931C3.77405 29.0963 3.39164 29.1231 3.01192 29.1732C2.63193 29.2196 2.25491 29.2877 1.88281 29.3774Z" fill="#FBF6EC"></path> <path d="M1.50781 30.22C1.50781 30.22 1.67595 30.1439 1.94025 30.0558C2.26121 29.9488 2.58893 29.8632 2.9212 29.7996C3.25458 29.7393 3.59171 29.7018 3.93022 29.6875C4.20648 29.6875 4.39065 29.6875 4.39065 29.6875C4.39065 29.6875 3.65796 29.7635 2.94125 29.8997C2.22453 30.0359 1.50781 30.22 1.50781 30.22Z" fill="#FBF6EC"></path> <path d="M1.11719 31.1805C1.23951 31.1153 1.36519 31.0565 1.49356 31.0043C1.77961 30.8934 2.07605 30.8115 2.37847 30.7601C2.68011 30.7111 2.98608 30.6936 3.29139 30.708C3.5436 30.708 3.69175 30.752 3.69175 30.752C3.26109 30.7531 2.83128 30.7892 2.40647 30.8602C1.96878 30.9319 1.53766 31.0391 1.11719 31.1805Z" fill="#FBF6EC"></path> <path d="M0.96875 32.1768C0.96875 32.1768 1.13689 32.1007 1.39717 32.0046C1.71807 31.8918 2.04744 31.8048 2.38213 31.7444C2.71676 31.6869 3.0556 31.6574 3.39516 31.6562C3.67543 31.6562 3.8556 31.6562 3.8556 31.6562C3.36933 31.6923 2.88549 31.7551 2.40613 31.8444C1.92124 31.9288 1.44141 32.0396 0.96875 32.1768Z" fill="#FBF6EC"></path> <path d="M0.828125 33.1099C0.828125 33.1099 1.00829 33.0298 1.29257 32.9377C1.63976 32.8292 1.99437 32.7462 2.35365 32.6894C2.71286 32.6363 3.07556 32.6096 3.43871 32.6094C3.73502 32.6094 3.93122 32.6334 3.93122 32.6334C3.40703 32.6585 2.88448 32.7107 2.36567 32.7895C1.84785 32.8691 1.33457 32.976 0.828125 33.1099Z" fill="#FBF6EC"></path> <path d="M1.125 33.941C1.125 33.941 1.29721 33.877 1.56144 33.8009C1.88404 33.7081 2.21158 33.6332 2.54246 33.5767C2.87551 33.5262 3.21093 33.4927 3.5474 33.4766C3.81972 33.4766 4.00389 33.4766 4.00389 33.4766L3.55141 33.5447C3.27916 33.5807 2.91883 33.6327 2.55843 33.6968C2.1981 33.7608 1.84171 33.8249 1.57347 33.877L1.125 33.941Z" fill="#FBF6EC"></path> <path d="M1.28125 34.8569C1.28125 34.8569 1.44144 34.8088 1.68168 34.7528C1.9814 34.6862 2.28494 34.6381 2.59059 34.6086C2.89682 34.5825 3.20424 34.5731 3.51152 34.5806C3.76373 34.5806 3.93193 34.6126 3.93193 34.6126L3.51152 34.6367C3.26326 34.6367 2.93093 34.6727 2.5986 34.7087C2.26628 34.7448 1.93796 34.7768 1.6897 34.8048L1.28125 34.8569Z" fill="#FBF6EC"></path> <path d="M1.28125 35.9264C1.28125 35.9264 1.45346 35.8704 1.72171 35.8103C2.0474 35.7364 2.37789 35.6855 2.71067 35.6582C3.04261 35.6348 3.37579 35.6348 3.70766 35.6582C3.97998 35.6582 4.16015 35.6982 4.16015 35.6982C4.16015 35.6982 3.43541 35.6982 2.71869 35.7703C2.00198 35.8424 1.28125 35.9264 1.28125 35.9264Z" fill="#FBF6EC"></path> <path d="M1.11719 37.0287C1.11719 37.0287 1.28138 36.9526 1.53759 36.8646C1.85093 36.7616 2.17241 36.6853 2.49856 36.6364C2.82478 36.5901 3.15421 36.5713 3.48352 36.5803C3.75584 36.5803 3.93199 36.6123 3.93199 36.6123C3.45624 36.6268 2.98168 36.6682 2.51059 36.7365C2.04102 36.8077 1.57585 36.9053 1.11719 37.0287Z" fill="#FBF6EC"></path> <path d="M0.671875 37.9593C0.671875 37.9593 0.852038 37.8952 1.1283 37.8191C1.47023 37.7263 1.818 37.6566 2.16939 37.611C2.52013 37.5682 2.8731 37.5469 3.22639 37.5469C3.51468 37.5469 3.70688 37.5709 3.70688 37.5709C3.70688 37.5709 2.9381 37.611 2.18136 37.7111C1.42461 37.8111 0.671875 37.9593 0.671875 37.9593Z" fill="#FBF6EC"></path> <path d="M0.75 38.9532C0.75 38.9532 0.942195 38.865 1.24245 38.753C1.61402 38.6243 1.994 38.5213 2.37964 38.4446C2.76567 38.3725 3.15636 38.3283 3.54877 38.3125C3.86907 38.3125 4.08131 38.3125 4.08131 38.3125C3.51735 38.3589 2.95609 38.4337 2.39962 38.5367C1.84282 38.6463 1.29214 38.7854 0.75 38.9532Z" fill="#FBF6EC"></path> <path d="M1.20312 39.7832C1.20312 39.7832 1.37534 39.7032 1.64358 39.6071C1.9721 39.4953 2.30968 39.4122 2.6526 39.3588C2.99689 39.3051 3.34526 39.2824 3.69362 39.2908C3.9779 39.2908 4.16208 39.3228 4.16208 39.3228C3.66194 39.3378 3.16318 39.3833 2.66863 39.4589C2.17375 39.536 1.68433 39.6443 1.20312 39.7832Z" fill="#FBF6EC"></path> <path d="M1.14062 40.7248C1.27846 40.6611 1.42017 40.6063 1.56504 40.5607C1.88666 40.4573 2.21807 40.3876 2.55401 40.3524C2.88825 40.32 3.22478 40.32 3.55902 40.3524C3.71 40.3718 3.85973 40.3998 4.00743 40.4365C3.5251 40.397 3.04034 40.397 2.55802 40.4365C2.07839 40.4934 1.60435 40.5898 1.14062 40.7248Z" fill="#FBF6EC"></path> <path d="M0.890625 41.8829C0.890625 41.8829 1.08683 41.8068 1.38708 41.7147C1.753 41.6008 2.1245 41.506 2.50021 41.4304C2.90064 41.3543 3.32906 41.2983 3.64135 41.2703C3.95363 41.2422 4.16186 41.2422 4.16186 41.2422L3.64535 41.3263C3.33702 41.3783 2.92864 41.4464 2.52026 41.5305C2.11182 41.6146 1.71941 41.6987 1.39911 41.7667L0.890625 41.8829Z" fill="#FBF6EC"></path> <path d="M1.28125 42.5128C1.28125 42.5128 1.46141 42.4567 1.74175 42.3927C2.08552 42.3175 2.43303 42.26 2.78278 42.2205C3.13259 42.1846 3.48418 42.1685 3.83583 42.1725C4.12413 42.1725 4.31231 42.1725 4.31231 42.1725L3.83583 42.2085C3.55155 42.2085 3.17118 42.2565 2.79474 42.3006C2.41837 42.3447 2.038 42.3887 1.75371 42.4287L1.28125 42.5128Z" fill="#FBF6EC"></path> <path d="M1.57812 43.5704L2.05861 43.4663C2.3469 43.4103 2.7353 43.3462 3.12369 43.2821C3.51209 43.2181 3.90049 43.1701 4.19673 43.138L4.68523 43.0859L4.20475 43.1901C3.91646 43.2501 3.52806 43.3142 3.13973 43.3742C2.75133 43.4343 2.35893 43.4864 2.06663 43.5184L1.57812 43.5704Z" fill="#FBF6EC"></path> <path d="M1.72656 44.6018C1.72656 44.6018 1.93078 44.5257 2.24714 44.4296C2.56343 44.3335 2.98384 44.2294 3.41627 44.1413C3.84871 44.0532 4.28115 44.0052 4.61748 43.9812C4.95382 43.9571 5.166 43.9531 5.166 43.9531L4.6255 44.0372C4.30113 44.0893 3.8727 44.1573 3.44428 44.2414C2.57947 44.4016 1.72656 44.6018 1.72656 44.6018Z" fill="#FBF6EC"></path> <path d="M1.96094 45.5543L2.5015 45.4302C2.82581 45.3582 3.26225 45.274 3.70271 45.194C4.14316 45.1139 4.57954 45.0418 4.90392 44.9978L5.45243 44.9297L4.91187 45.0538C4.58756 45.1259 4.15513 45.21 3.71073 45.2901C3.26626 45.3701 2.83784 45.4382 2.50952 45.4863L1.96094 45.5543Z" fill="#FBF6EC"></path> <path d="M3.10156 46.2602L3.50199 46.1681C3.74223 46.116 4.06253 46.0599 4.38283 46.0039C4.70313 45.9479 5.03152 45.9078 5.27176 45.8838C5.51194 45.8598 5.67212 45.8438 5.67212 45.8438L5.27176 45.9398C5.03152 45.9919 4.71115 46.048 4.38684 46.104C4.06253 46.16 3.74223 46.2001 3.49798 46.2241L3.10156 46.2602Z" fill="#FBF6EC"></path> <path d="M6.58594 16.1094C6.58594 16.1094 6.68604 16.1094 6.83019 16.1094C6.97433 16.1094 7.16252 16.1374 7.35471 16.1574C7.54691 16.1774 7.73509 16.2134 7.87522 16.2495L8.11146 16.3055C8.11146 16.3055 8.01135 16.3055 7.86721 16.3055C7.72306 16.3055 7.53488 16.2815 7.34268 16.2615C7.15049 16.2415 6.9623 16.2015 6.82217 16.1694L6.58594 16.1094Z" fill="#FBF6EC"></path> <path d="M6.41406 16.7188C6.87765 16.8866 7.37273 16.9495 7.86353 16.903C7.79051 16.9309 7.71558 16.9537 7.63933 16.971C7.46653 17.0048 7.28958 17.0116 7.11481 16.9911C6.86241 16.9592 6.62177 16.8657 6.41406 16.7188Z" fill="#FBF6EC"></path> <path d="M6.05469 17.3906C6.28619 17.4716 6.52485 17.5306 6.7674 17.5668C7.01033 17.5983 7.25557 17.6077 7.50015 17.5948C7.4262 17.6223 7.34976 17.6424 7.27194 17.6549C7.09926 17.6796 6.92403 17.6796 6.75142 17.6549C6.57961 17.6276 6.41252 17.5764 6.2549 17.5028C6.1845 17.4723 6.11746 17.4347 6.05469 17.3906Z" fill="#FBF6EC"></path> <path d="M7.42188 7.07812C7.91938 7.19608 8.4234 7.28431 8.93136 7.34241C9.4405 7.3994 9.9526 7.42615 10.4649 7.42247C10.4649 7.42247 10.2727 7.45448 9.98441 7.47453C9.62921 7.49195 9.27322 7.48255 8.9194 7.44653C8.56735 7.40505 8.21924 7.33544 7.87837 7.2383C7.61407 7.1502 7.42188 7.07812 7.42188 7.07812Z" fill="#FBF6EC"></path> <path d="M7.26562 7.92969C7.73191 8.01054 8.20247 8.06404 8.675 8.08987C9.14576 8.11774 9.6177 8.11774 10.0885 8.08987C9.94312 8.12431 9.79609 8.151 9.648 8.16993C9.32264 8.20983 8.99445 8.22186 8.66698 8.20595C8.33945 8.18557 8.01409 8.13871 7.69405 8.06581C7.54892 8.02808 7.40589 7.9826 7.26562 7.92969Z" fill="#FBF6EC"></path> <path d="M6.8125 8.57812C6.8125 8.57812 7.5492 8.6942 8.28596 8.74626C9.02266 8.79832 9.77139 8.79431 9.77139 8.79431C9.77139 8.79431 9.58721 8.82238 9.30694 8.84637C8.96436 8.87049 8.62053 8.87049 8.27794 8.84637C7.93602 8.81968 7.59626 8.77019 7.26091 8.69821C6.99667 8.65016 6.8125 8.57812 6.8125 8.57812Z" fill="#FBF6EC"></path> <path d="M6.74219 9.4926C6.74219 9.4926 7.4829 9.53263 8.21966 9.52461C8.59202 9.52461 8.96037 9.52461 9.23663 9.49661L9.70114 9.47656C9.70114 9.47656 9.52091 9.51659 9.24064 9.55268C8.90351 9.5981 8.56382 9.62215 8.22367 9.62472C7.88516 9.62623 7.54692 9.60756 7.21064 9.56865C6.92235 9.53263 6.74219 9.4926 6.74219 9.4926Z" fill="#FBF6EC"></path> <path d="M6.74219 10.3794L7.17061 10.3594C7.42689 10.3594 7.76724 10.3594 8.11154 10.3594C8.45589 10.3594 8.79223 10.3834 9.04851 10.4034L9.47694 10.4434H9.04851C8.79223 10.4434 8.44787 10.4434 8.10759 10.4434C7.76724 10.4434 7.42689 10.4154 7.17061 10.3954L6.74219 10.3794Z" fill="#FBF6EC"></path> <path d="M6.66406 11.4531H7.06442L7.92528 11.4772L8.78615 11.4972H9.18657C9.18657 11.4972 9.0304 11.5212 8.78615 11.5373C8.49838 11.5589 8.2097 11.5656 7.92127 11.5572C7.63344 11.5509 7.34607 11.5295 7.06041 11.4932C6.80821 11.4972 6.66406 11.4531 6.66406 11.4531Z" fill="#FBF6EC"></path> <path d="M6.51562 12.447L6.87201 12.4189C7.08419 12.4189 7.36847 12.4189 7.67279 12.3989C7.97712 12.3789 8.24537 12.3989 8.47358 12.4189L8.82997 12.447C8.82997 12.447 8.68582 12.447 8.47358 12.475C8.2614 12.503 7.97712 12.495 7.67279 12.499C7.36847 12.503 7.10423 12.499 6.87201 12.475C6.63979 12.451 6.51562 12.447 6.51562 12.447Z" fill="#FBF6EC"></path> <path d="M6.51562 13.3125H6.85196H7.58064L8.3134 13.3325H8.64573C8.64573 13.3325 8.51361 13.3565 8.3134 13.3766C8.06974 13.3977 7.82516 13.4057 7.58064 13.4006C7.3356 13.3947 7.09102 13.376 6.84795 13.3445C6.64774 13.3406 6.51562 13.3125 6.51562 13.3125Z" fill="#FBF6EC"></path> <path d="M10.074 7.67774C10.074 7.67774 10.03 7.67774 10.05 7.62969C10.0536 7.62391 10.0586 7.61911 10.0645 7.61576C10.0705 7.61247 10.0772 7.61076 10.084 7.61076C10.0908 7.61076 10.0975 7.61247 10.1035 7.61576C10.1094 7.61911 10.1145 7.62391 10.118 7.62969C10.1315 7.6431 10.1414 7.6596 10.147 7.67774C10.1526 7.69588 10.1537 7.71514 10.1501 7.73381C10.122 7.89794 10.078 8.13417 10.034 8.39847C9.92926 9.07009 9.87575 9.74875 9.87378 10.4285C9.86727 11.1036 9.91282 11.7784 10.0099 12.4465C10.086 12.9991 10.1621 13.3634 10.1621 13.3634C10.1621 13.3634 10.1421 13.2753 10.0981 13.1152C10.054 12.955 10.002 12.7147 9.95391 12.4585C9.82948 11.7837 9.76914 11.0986 9.77368 10.4125C9.77637 10.0472 9.79773 9.68243 9.83776 9.31934C9.86977 8.97104 9.92584 8.64673 9.9779 8.37441C10.03 8.10216 10.098 7.87395 10.1341 7.71777C10.1472 7.6857 10.1472 7.64974 10.1341 7.61767C10.1308 7.61274 10.1263 7.60866 10.1211 7.60583C10.1159 7.60301 10.1099 7.60156 10.104 7.60156C10.0981 7.60156 10.0922 7.60301 10.087 7.60583C10.0818 7.60866 10.0773 7.61274 10.074 7.61767C10.03 7.68175 10.078 7.68175 10.074 7.67774Z" fill="#FBF6EC"></path> <path d="M5.611 21.8594C5.611 21.8594 5.38679 22.528 5.11053 23.5451C4.77722 24.7879 4.52975 26.0521 4.36976 27.3289C4.27767 28.0255 4.20563 28.7223 4.1656 29.3789C4.12557 30.0356 4.10553 30.6682 4.11355 31.1767C4.11355 32.2297 4.15758 32.9345 4.15758 32.9345L4.11755 32.45C4.11755 32.1457 4.0655 31.7052 4.05748 31.1767C4.03927 29.8867 4.11019 28.5971 4.26972 27.3168C4.44923 26.0374 4.71681 24.7717 5.07051 23.529C5.21465 23.0206 5.3588 22.6081 5.47086 22.3278L5.611 21.8594Z" fill="#FBF6EC"></path> <path d="M7.5615 4.56149C7.35465 4.20885 7.23397 3.81239 7.20913 3.40433C7.18165 2.99418 7.24876 2.58321 7.40533 2.20312L7.49742 2.23516C7.45732 2.44278 7.45732 2.65616 7.49742 2.86379C7.53731 3.076 7.59765 3.28385 7.67765 3.48441C7.82975 3.88481 8.03397 4.28521 8.21012 4.68561C7.98599 4.30874 7.78275 3.91976 7.60153 3.52045C7.40618 3.11647 7.33907 2.66236 7.40934 2.21914L7.48946 2.24717C7.33309 2.6164 7.26059 3.01572 7.27722 3.41634C7.29201 3.81357 7.38883 4.20345 7.5615 4.56149Z" fill="#FBF6EC"></path> <path d="M6.88353 2.28125C6.83824 2.68037 6.83824 3.08334 6.88353 3.48245C6.92856 3.87715 7.01854 4.26539 7.15184 4.63961C7.08986 4.5298 7.03504 4.41612 6.98765 4.29927C6.77699 3.77644 6.71461 3.20561 6.80748 2.64962C6.82424 2.52521 6.84968 2.40213 6.88353 2.28125Z" fill="#FBF6EC"></path> <path d="M8.54858 1.96875C8.5029 2.1073 8.46813 2.24921 8.44453 2.39317C8.33469 3.02213 8.41699 3.66958 8.68076 4.25104C8.73959 4.38255 8.80782 4.50968 8.88492 4.63141L8.81288 4.52731C8.74478 4.44073 8.68444 4.34828 8.63271 4.25104C8.47049 3.9687 8.36572 3.65709 8.32437 3.33412C8.29335 3.01375 8.32326 2.69041 8.41245 2.38116C8.43947 2.27855 8.4743 2.17816 8.51657 2.08087L8.54858 1.96875Z" fill="#FBF6EC"></path> <path d="M9.3325 2.51562C9.22536 2.85708 9.18461 3.21589 9.21241 3.57268C9.24462 3.92762 9.34525 4.27297 9.50872 4.5897C9.4349 4.50276 9.37167 4.40733 9.32053 4.30541C9.20583 4.07921 9.13518 3.83327 9.1123 3.58069C9.0987 3.32573 9.13261 3.07047 9.21241 2.82793C9.2412 2.71985 9.28149 2.61515 9.3325 2.51562Z" fill="#FBF6EC"></path> <path d="M10.6197 3.26562C10.579 3.48201 10.5683 3.70296 10.5877 3.92228C10.6126 4.14238 10.6679 4.35797 10.7519 4.56293C10.6041 4.3842 10.5134 4.16519 10.4916 3.93429C10.4739 3.77015 10.4888 3.60413 10.5356 3.44581C10.5576 3.3831 10.5858 3.32274 10.6197 3.26562Z" fill="#FBF6EC"></path> <path d="M11.3852 3.26562C11.3852 3.26562 11.3852 3.34971 11.3852 3.48184C11.3852 3.61397 11.3852 3.78214 11.4172 3.95031C11.4493 4.11848 11.4533 4.29065 11.4693 4.41878C11.4853 4.54691 11.4973 4.635 11.4973 4.635C11.465 4.57016 11.4369 4.50328 11.4133 4.4348C11.3649 4.28104 11.3327 4.12271 11.3172 3.96232C11.3005 3.80126 11.3005 3.6389 11.3172 3.47784C11.3358 3.40586 11.3585 3.335 11.3852 3.26562Z" fill="#FBF6EC"></path> <path d="M9.9163 3.35938C9.90691 3.59567 9.9257 3.83225 9.97237 4.06408C10.0204 4.29556 10.0971 4.52017 10.2006 4.73275C10.1484 4.67717 10.1015 4.61685 10.0605 4.55257C9.97145 4.4083 9.90776 4.24985 9.87227 4.0841C9.84466 3.91706 9.84466 3.74664 9.87227 3.5796C9.88068 3.50508 9.8954 3.43141 9.9163 3.35938Z" fill="#FBF6EC"></path> </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wishes-secondary">
+                <p class="wishes-secondary-text">
+                    <b>Мы бы хотели, чтобы в день нашей свадьбы вы вдоволь повеселились и отдохнули, поэтому мы решили устроить праздник <span style="color: #64242E; font-weight: 700; background: rgba(100, 36, 46, 0.08); padding: 2px 8px; border-radius: 4px;">исключительно для совершеннолетних гостей</span>.</b> 🥂
+                </p>
+            </div>
+        </section>
+
+        <!-- RSVP -->
+        <section class="section rsvp-section animate-on-scroll">
+            <h2 class="section-title">ПРИСУТСТВИЕ</h2>
+            <div style="
+            max-width: 400px;
+            width: 100%;
+            margin: -10px auto 30px;
+            padding: 14px 20px;
+            background: #f8f5f0;
+            border-left: 4px solid #64242E;
+            border-radius: 4px;
+            text-align: center;
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 300;
+            color: #2a2a2a;
+            line-height: 1.5;
+        ">
+                ⏳ Подтвердите своё присутствие <strong>до 10 августа</strong>.
+            </div>
+            <p class="section-text">Пожалуйста, ответьте на несколько вопросов, это поможет нам в организации торжества</p>
+
+            <form class="rsvp-form" @submit.prevent="submitForm">
+                <input type="hidden" name="_subject" value="🔔 Новая заявка на свадьбу!">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <div class="form-group">
+                    <label>Фамилия Имя</label>
+                    <input type="text" v-model="form.name" required>
+                </div>
+                <div class="form-group">
+                    <label>Сможете ли вы присутствовать?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" v-model="form.attendance" value="yes" required> Смогу прийти</label>
+                        <label><input type="radio" v-model="form.attendance" value="no"> Не смогу прийти</label>
+                        <label><input type="radio" v-model="form.attendance" value="maybe"> Затрудняюсь ответить, сообщу позже</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Будет ли с вами кто-то еще?</label>
+                    <input type="text" v-model="form.guest" placeholder="Да, Анна Иванова">
+                </div>
+                <div class="form-group">
+                    <label>Предпочтения по напиткам</label>
+                    <div class="checkbox-group">
+                        <label v-for="drink in data.drinks" :key="drink">
+                            <input type="checkbox" :value="drink" v-model="form.drinks"> {{ drink }}
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-submit">Отправить</button>
+            </form>
+        </section>
+
+        <!-- Contacts -->
+        <section class="section contacts-section animate-on-scroll">
+            <h2 class="section-title">КОНТАКТЫ</h2>
+            <p class="section-text">Если вы приготовили для нас сюрприз, не забудьте предупредить об этом нашего свадебного организатора</p>
+            <a :href="data.organizer.olya.waLink" target="_blank" class="contact-link">Ольга {{ data.organizer.olya.phone }}</a>
+            <a :href="data.organizer.julia.waLink" target="_blank" class="contact-link">Юлия {{ data.organizer.julia.phone }}</a>
+        </section>
+
+        <button class="music-btn" :class="{ visible: showMusicBtn, playing: isMusicPlaying }" @click="toggleMusic">
+            <span v-if="!isMusicPlaying">🔇</span>
+            <span v-else>🔊</span>
+            <span class="tooltip">{{ isMusicPlaying ? 'Выключить' : 'Включить музыку' }}</span>
+        </button>
+        <!-- Footer -->
+        <section class="section footer-section animate-on-scroll">
+            <h2 class="section-title">ДО СКОРОЙ<br>ВСТРЕЧИ!</h2>
+
+            <!-- Таймер -->
+            <div class="timer-container">
+                <div class="timer-item">
+                    <div class="timer-number" id="days">00</div>
+                    <div class="timer-label">Дней</div>
+                </div>
+                <div class="timer-divider">:</div>
+                <div class="timer-item">
+                    <div class="timer-number" id="hours">00</div>
+                    <div class="timer-label">Часов</div>
+                </div>
+                <div class="timer-divider">:</div>
+                <div class="timer-item">
+                    <div class="timer-number" id="minutes">00</div>
+                    <div class="timer-label">Минут</div>
+                </div>
+                <div class="timer-divider">:</div>
+                <div class="timer-item">
+                    <div class="timer-number" id="seconds">00</div>
+                    <div class="timer-label">Секунд</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<script>
+    const { createApp, ref, onMounted, reactive, computed } = Vue;
+
+    createApp({
+        setup() {
+            const isLoading = ref(true);
+            const preloaderNum = ref(0);
+
+            /* =========================================
+               ДАННЫЕ ДЛЯ РЕДАКТИРОВАНИЯ
+               ========================================= */
+            const data = reactive({
+                groom: 'КИРИЛЛ',
+                bride: 'АЛЁНА',
+                circleText: '• МЫ ЖЕНИМСЯ •19/09/2026• МЫ ЖЕНИМСЯ • ',
+                location: {
+                    banquet: 'Церемония и банкет:<br>Ресторан Panorama<br>г. Саранск, ул. Советская, 54'
+                },
+                maps: {
+                    banquet: 'https://yandex.ru/maps/org/panorama/190869082810/?indoorLevel=1&ll=45.177525%2C54.180225&z=17'
+                },
+                timing: [
+                    { time: '16:00', label: 'Сбор гостей', align: 'left' },
+                    { time: '16:30', label: 'Церемония', align: 'right' },
+                    { time: '17:30', label: 'Свадебный ужин', align: 'left' },
+                ],
+                dresscode: {
+                    colors: ['#54392D', '#64242E', '#EFE0CD'],
+                    images: [
+                        /** boy */
+                        'https://i.pinimg.com/1200x/84/59/2c/84592c249e778dd76164b4fbd1385175.jpg',
+                        /** baby */
+                        'https://i.pinimg.com/1200x/13/14/7b/13147bf92d6f8809bb0ca65404091c78.jpg',
+                        /** boy */
+                        'https://i.pinimg.com/736x/9e/ae/bf/9eaebf1ea54f25fc7c9f46de1cd5906f.jpg',
+                        /** baby */
+                        'https://i.pinimg.com/736x/b2/6e/d0/b26ed0143f65f45ca3af432cf6c6c38b.jpg',
+                        /** baby */
+                        'https://i.pinimg.com/736x/1e/86/38/1e86387b31b921634870fa5b9949f8af.jpg',
+                        /** boy */
+                        'https://i.pinimg.com/webp/1200x/2e/be/dd/2ebedda3893112b36e7ddfb92988ff11.webp',
+                        /** baby */
+                        'https://i.pinimg.com/1200x/11/75/2f/11752f2df4602d3ac5d09c65f07ef338.jpg',
+                        /** boy */
+                        'https://i.pinimg.com/736x/c9/07/8a/c9078a97f37f37ab28b05844a2756335.jpg',
+                        /** baby */
+                        'https://i.pinimg.com/736x/4b/48/d4/4b48d4d7a6ec5bd05b2f782fe9b28cfe.jpg',
+                        /** baby */
+                        'https://i.pinimg.com/736x/2e/d3/ed/2ed3ed13d238251aa9710def1efe3182.jpg'
+                    ]
+                },
+                drinks: ['Белое вино', 'Красное вино', 'Водка', 'Виски', 'Самогон', 'Безалкогольные напитки'],
+                organizer: {
+                    olya: {
+                        phone: '+7 (987) 683-95-04',
+                        waLink: 'https://t.me/+79876839504'
+                    },
+                    julia: {
+                        phone: '+7 (960) 330-81-81',
+                        waLink: 'https://t.me/+79603308181'
+                    }
+                }
+            });
+
+            /* ========== КАЛЕНДАРЬ: 19 сентября 2026 ========== */
+            const calendar = reactive({
+                // Сентябрь 2026: 1 сентября = вторник (день недели 2, где пн=0)
+                year: 2026,
+                month: 8, // 0-indexed (0 = январь, 8 = сентябрь)
+                highlightedDay: 19,
+                monthName: 'СЕНТЯБРЬ',
+                weekdays: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
+
+                // Сколько пустых ячеек в начале (сентябрь 2026 начинается со вторника => 1 пустая)
+                firstDayOffset: computed(() => {
+                    const firstDay = new Date(calendar.year, calendar.month, 1).getDay();
+                    // getDay: 0=ВС, 1=ПН, 2=ВТ... => приводим к ПН=0
+                    const offset = firstDay === 0 ? 6 : firstDay - 1;
+                    return Array(offset).fill(null);
+                }),
+
+                daysInMonth: computed(() => {
+                    const days = new Date(calendar.year, calendar.month + 1, 0).getDate();
+                    return Array.from({ length: days }, (_, i) => i + 1);
+                })
+            });
+
+            // Проверяем, является ли день выходным (СБ/ВС)
+            const isWeekend = (day) => {
+                const d = new Date(calendar.year, calendar.month, day).getDay();
+                return d === 0 || d === 6;
+            };
+
+            const form = reactive({
+                name: '',
+                attendance: '',
+                guest: '',
+                drinks: []
+            });
+
+            const showMusicBtn = ref(false);
+            const isMusicPlaying = ref(false);
+            const audio = ref(null);
+
+            onMounted(() => {
+                // 1. Preloader logic
+                const interval = setInterval(() => {
+                    if (preloaderNum.value < 100) {
+                        preloaderNum.value += Math.ceil(Math.random() * 5) + 2;
+                        if (preloaderNum.value > 100) preloaderNum.value = 100;
+                    } else {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            isLoading.value = false;
+                            document.body.classList.remove('loading');
+                        }, 500);
+                    }
+                }, 50);
+
+                // 2. Smooth scroll
+                new SmoothScroll('a[href*="#"]', { speed: 800, speedAsDuration: true });
+
+                // 3. Swiper init
+                setTimeout(() => {
+                    new Swiper('.dresscode-slider', {
+                        slidesPerView: 1.2,
+                        centeredSlides: true,
+                        spaceBetween: 20,
+                        loop: true,
+                        pagination: { el: '.swiper-pagination', clickable: true },
+                        breakpoints: { 768: { slidesPerView: 2.5, spaceBetween: 30 } }
+                    });
+                }, 100);
+
+
+                // 4. Intersection Observer for scroll animations
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) entry.target.classList.add('animate-in');
+                    });
+                }, { threshold: 0.1 });
+
+                document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+                // 5. Timer
+                function startTimer() {
+                    const targetDate = new Date('2026-09-19T16:00:00').getTime();
+
+                    function updateTimer() {
+                        const now = new Date().getTime();
+                        const distance = targetDate - now;
+
+                        if (distance < 0) {
+                            document.getElementById('days').textContent = '00';
+                            document.getElementById('hours').textContent = '00';
+                            document.getElementById('minutes').textContent = '00';
+                            document.getElementById('seconds').textContent = '00';
+                            return;
+                        }
+
+                        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        document.getElementById('days').textContent = String(days).padStart(2, '0');
+                        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+                    }
+
+                    updateTimer();
+                    setInterval(updateTimer, 1000);
+                }
+
+                setTimeout(startTimer, 100);
+
+                setTimeout(() => {
+                    showMusicBtn.value = true;
+                }, 1500);
+
+// Массив треков (рандомный выбор)
+                const tracks = [
+                    'https://fine.sunproxy.net/file/OUYrd2t4bzh5OGtJQm1tMFRXanBkTDBUZjBETkVwSG9MSEthamxLZ0xMQ3cvUFQ2alZ3aHhMcFJ5T3BieXd4ZDUzdklTUnhXRnVzbFVjaXJiNkVaejlrSTZtazJTY3paWU90Ykp6YzFYZ2M9/Ellie_Goulding_-_Love_Me_Like_You_Do_muzyka_iz_filma_50_ottenkov_serogo_50_Shades_of_Grey_2015_Deli_(SkySound.cc).mp3',
+                ];
+                const randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
+
+                audio.value = new Audio(randomTrack);
+                audio.value.loop = false;
+                audio.value.volume = 0.5;
+
+            });
+
+            const toggleMusic = () => {
+                if (!audio.value) return;
+
+                if (isMusicPlaying.value) {
+                    audio.value.pause();
+                    isMusicPlaying.value = false;
+                } else {
+                    audio.value.play()
+                        .then(() => {
+                            isMusicPlaying.value = true;
+                        })
+                        .catch(() => {
+                            // Если что-то пошло не так
+                            isMusicPlaying.value = false;
+                        });
+                }
+            }
+
+            const openMap = (type) => {
+                window.open(data.maps[type], '_blank');
+            };
+
+            const submitForm = async () => {
+                const EMAIL = 'zloiigonin@yandex.ru';
+
+                // Проверяем, что имя заполнено
+                if (!form.name.trim()) {
+                    alert('Пожалуйста, укажите ваше имя');
+                    return;
+                }
+
+                // Собираем данные из формы
+                const formData = new FormData();
+                formData.append('name', form.name);
+                formData.append('attendance', form.attendance || 'Не указано');
+                formData.append('guest', form.guest || 'Без гостя');
+                formData.append('drinks', form.drinks.join(', ') || 'Не выбрано');
+                formData.append('_subject', '🔔 Новая заявка на свадьбу!');
+                formData.append('_captcha', 'false');
+                formData.append('_template', 'table');
+
+                try {
+                    const response = await fetch(`https://formsubmit.co/ajax/${EMAIL}`, {
+                        method: 'POST',
+                        headers: { 'Accept': 'application/json' },
+                        body: formData
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        alert('Спасибо за вашу заявку! Мы свяжемся с вами в ближайшее время.');
+                        // Очищаем форму
+                        form.name = '';
+                        form.attendance = '';
+                        form.guest = '';
+                        form.drinks = [];
+                    } else {
+                        alert('Произошла ошибка при отправке. Попробуйте позже.');
+                    }
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                    alert('Не удалось отправить форму. Проверьте интернет-соединение.');
+                }
+            };
+
+            return { isLoading, preloaderNum, data, form, calendar, isWeekend, submitForm, openMap, showMusicBtn, isMusicPlaying, toggleMusic };
+        }
+    }).mount('#app');
+</script>
+</body>
+</html>
